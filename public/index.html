@@ -1,0 +1,60 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="barnacleApp">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Barnacle</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        html 					{ overflow-y:scroll; }
+        body 					{ padding-top:50px; }
+        #animal-list { margin-bottom:30px; }
+        #animal-form { margin-bottom:50px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+    <script src="js/controllers/animalController.js"></script> <!-- load up our controller -->
+    <script src="js/services/animalService.js"></script> <!-- load our animal service -->
+    <script src="js/core.js"></script> <!-- load our main application -->
+
+</head>
+
+<body ng-controller="animalController">
+<div class="container">
+
+    <!-- HEADER AND ANIMALS COUNT -->
+    <div class="jumbotron text-center">
+        <h1>Animals <span class="label label-info">{{ animals.length }}</span></h1>
+    </div>
+
+    <!-- ANIMAL LIST -->
+    <div id="animal-list" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+
+            <!-- LOOP OVER THE animals IN $scope.animals -->
+            <div class="checkbox" ng-repeat="animal in animals">
+                <label>
+                    <input type="checkbox"> {{ animal.name }}
+                </label>
+            </div>
+
+            <p class="text-center" ng-show="loading">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
