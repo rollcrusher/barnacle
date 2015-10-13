@@ -1,4 +1,4 @@
-var AnimalDAO = require('./dao/animalDAO');
+var AnimalDAO = require('../dao/animalDAO');
 
 module.exports = function (app) {
 

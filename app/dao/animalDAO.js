@@ -1,6 +1,5 @@
 var log4js = require('log4js');
 log4js.loadAppender('console');
-log4js.addAppender(log4js.appenders.console());
 var logger = log4js.getLogger('{animalDAO}');
 logger.setLevel('DEBUG');
 
@@ -22,7 +21,7 @@ module.exports.animalsCount = function(resp) {
     });
 };
 
-module.exports.allAnimal = function (res) {
+module.exports.allAnimals = function (res) {
     Animal.find(function (err, animals) {
         if (err)
             res.send(err);
