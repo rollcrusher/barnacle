@@ -7,17 +7,17 @@ logger.setLevel('DEBUG');
 var mongoose = require('mongoose');
 var featureSchema = mongoose.Schema({
     name: String
-}, { collection: 'feature' });
+}, {collection: 'feature'});
 var feature = mongoose.model('feature', featureSchema);
 
 //
-module.exports.featuresCount = function(resp) {
+module.exports.featuresCount = function (resp) {
     feature.count({}, function (err, count) {
         if (err) {
             console.log(err);
         }
-        resp.send({featureCount: count});
-        logger.debug("feature count : " +  count);
+        resp.send({featuresCount: count});
+        logger.debug("features count : " + count);
     });
 };
 
@@ -26,11 +26,11 @@ module.exports.allFeatures = function (res) {
         if (err)
             res.send(err);
         res.json(features);
-        logger.debug("features : " +  features);
+        logger.debug("features : " + features);
     });
 };
 
-module.exports.feature = function (req, res) {
+/*module.exports.feature = function (req, res) {
     var query = feature.find({
         '_id': req.params.feature_id
     });
@@ -43,4 +43,4 @@ module.exports.feature = function (req, res) {
         res.json(feature);
         logger.debug("feature by id : " + feature);
     });
-};
+};*/

@@ -22,6 +22,7 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
 //routes
 require('./app/routes/animalRoutes.js')(app);
 require('./app/routes/featureRoutes.js')(app);
+require('./app/routes/flowRoutes.js')(app);
 
 var server = app.listen(3000, function () {
     var host = server.address().address;

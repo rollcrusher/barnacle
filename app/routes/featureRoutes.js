@@ -1,4 +1,4 @@
-var FeatureDAO = require('../dao/FeatureDAO');
+var FeatureDAO = require('../dao/featureDAO');
 
 module.exports = function (app) {
 
@@ -13,18 +13,10 @@ module.exports = function (app) {
     });
 
     // get Feature by id
-    app.get('/api/Feature/:feature_id', function (req, res) {
+    /*app.get('/api/features/:feature_id', function (req, res) {
         FeatureDAO.feature(req, res);
-    });
+    });*/
 
-    // get Features by Feature
-    app.get('/api/features', function (req, res) {
 
-    });
-
-    // application -------------------------------------------------------------
-    app.get('*', function (req, res) {
-        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
-    });
 
 };

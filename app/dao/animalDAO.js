@@ -4,20 +4,20 @@ var logger = log4js.getLogger('{animalDAO}');
 logger.setLevel('DEBUG');
 
 // define schema
-var mongoose = require('mongoose');
-var animalSchema = mongoose.Schema({
+var mongoose1 = require('mongoose');
+var animalSchema = mongoose1.Schema({
     name: String
-}, { collection: 'animal' });
-var Animal = mongoose.model('animal', animalSchema);
+}, {collection: 'animal'});
+var Animal = mongoose1.model('animal', animalSchema);
 
 //
-module.exports.animalsCount = function(resp) {
+module.exports.animalsCount = function (resp) {
     Animal.count({}, function (err, count) {
         if (err) {
             console.log(err);
         }
-        resp.send({animalCount: count});
-        logger.debug("animal count : " +  count);
+        resp.send({animalsCount: count});
+        logger.debug("animals count : " + count);
     });
 };
 
@@ -26,7 +26,7 @@ module.exports.allAnimals = function (res) {
         if (err)
             res.send(err);
         res.json(animals);
-        logger.debug("animals : " +  animals);
+        logger.debug("animals : " + animals);
     });
 };
 
@@ -42,5 +42,38 @@ module.exports.animal = function (req, res) {
         }
         res.json(animal);
         logger.debug("animal by id : " + animal);
+    });
+};
+
+
+module.exports.topfeatures = function (req, res) {
+    Animal.aggregate(
+        {$unwind: "$features"},
+        {$group: {_id: "$features", count: {$sum: 1}}},
+        {$sort: {count: -1}},
+        function (err, result) {
+            if (err) {
+                res.send(err);
+                logger.error(err);
+            }
+            res.json(result);
+            logger.debug("feature : " + result);
+        });
+};
+
+module.exports.animalsByFeature = function (req, res) {
+    var query = Animal.find(
+        {features: {$eq: req.params.feature_id}}
+    ).select({name:1});
+
+    /* db.animal.find( { features: { $eq: "561e5a33349631fc0e000002" } } ) */
+
+    Animal.find(query).exec(function (err, animals) {
+        if (err) {
+            res.send(err);
+            logger.error(err);
+        }
+        res.json(animals);
+        logger.debug("animals by feature : " + animals);
     });
 };

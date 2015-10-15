@@ -17,14 +17,13 @@ module.exports = function (app) {
         AnimalDAO.animal(req, res);
     });
 
-    // get animals by Feature
-    app.get('/api/features', function (req, res) {
-
+    // get top features
+    app.get('/api/animals/topfeatures', function (req, res) {
+        AnimalDAO.topfeatures(req, res);
     });
 
-    // application -------------------------------------------------------------
-    app.get('*', function (req, res) {
-        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    // get animals by feature id
+    app.get('/api/animals/:feature_id', function (req, res) {
+        AnimalDAO.animalsByFeature(req, res);
     });
-
 };
