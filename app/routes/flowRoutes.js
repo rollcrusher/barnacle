@@ -1,8 +1,5 @@
-module.exports = function (app) {
+module.exports = (app) => {
+	app.get('/prompt', (req, res) => {
 
-    app.get('/prompt', function (req, res) {
-
-    });
-
-
+	});
 };
