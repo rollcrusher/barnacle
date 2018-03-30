@@ -1,18 +1,17 @@
-var log4js = require('log4js');
-log4js.loadAppender('console');
-var logger = log4js.getLogger('{featureDAO}');
-logger.setLevel('DEBUG');
+const log4js = require('log4js');
+let logger = log4js.getLogger();
+logger.level = 'debug';
 
 // define schema
 var mongoose = require('mongoose');
 var featureSchema = mongoose.Schema({
     name: String
 }, {collection: 'feature'});
-var feature = mongoose.model('feature', featureSchema);
+var Feature = mongoose.model('feature', featureSchema);
 
 //
 module.exports.featuresCount = function (resp) {
-    feature.count({}, function (err, count) {
+    Feature.count({}, function (err, count) {
         if (err) {
             console.log(err);
         }
@@ -22,7 +21,7 @@ module.exports.featuresCount = function (resp) {
 };
 
 module.exports.allFeatures = function (res) {
-    feature.find(function (err, features) {
+    Feature.find(function (err, features) {
         if (err)
             res.send(err);
         res.json(features);
@@ -30,12 +29,12 @@ module.exports.allFeatures = function (res) {
     });
 };
 
-/*module.exports.feature = function (req, res) {
-    var query = feature.find({
+module.exports.feature = function (req, res) {
+    let query = Feature.find({
         '_id': req.params.feature_id
     });
 
-    feature.find(query).exec(function (err, feature) {
+    Feature.find(query).exec(function (err, feature) {
         if (err) {
             res.send(err);
             logger.error(err);
@@ -43,4 +42,4 @@ module.exports.allFeatures = function (res) {
         res.json(feature);
         logger.debug("feature by id : " + feature);
     });
-};*/
+};

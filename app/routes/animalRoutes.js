@@ -1,4 +1,4 @@
-var AnimalDAO = require('../dao/animalDAO');
+let AnimalDAO = require('../dao/animalDAO');
 
 module.exports = function (app) {
 
@@ -13,7 +13,7 @@ module.exports = function (app) {
     });
 
     // get animal by id
-    app.get('/api/animal/:animal_id', function (req, res) {
+    app.get('/api/animals/:animal_id', function (req, res) {
         AnimalDAO.animal(req, res);
     });
 

@@ -1,14 +1,13 @@
-var log4js = require('log4js');
-log4js.loadAppender('console');
-var logger = log4js.getLogger('{animalDAO}');
-logger.setLevel('DEBUG');
+const log4js = require('log4js');
+let logger = log4js.getLogger();
+logger.level = 'debug';
 
 // define schema
-var mongoose1 = require('mongoose');
-var animalSchema = mongoose1.Schema({
+let mongoose1 = require('mongoose');
+let animalSchema = mongoose1.Schema({
     name: String
 }, {collection: 'animal'});
-var Animal = mongoose1.model('animal', animalSchema);
+let Animal = mongoose1.model('animal', animalSchema);
 
 //
 module.exports.animalsCount = function (resp) {
@@ -31,7 +30,7 @@ module.exports.allAnimals = function (res) {
 };
 
 module.exports.animal = function (req, res) {
-    var query = Animal.find({
+    let query = Animal.find({
         '_id': req.params.animal_id
     });
 
@@ -44,7 +43,6 @@ module.exports.animal = function (req, res) {
         logger.debug("animal by id : " + animal);
     });
 };
-
 
 module.exports.topfeatures = function (req, res) {
     Animal.aggregate(
@@ -62,9 +60,9 @@ module.exports.topfeatures = function (req, res) {
 };
 
 module.exports.animalsByFeature = function (req, res) {
-    var query = Animal.find(
+    let query = Animal.find(
         {features: {$eq: req.params.feature_id}}
-    ).select({name:1});
+    ).select({name: 1});
 
     /* db.animal.find( { features: { $eq: "561e5a33349631fc0e000002" } } ) */
 

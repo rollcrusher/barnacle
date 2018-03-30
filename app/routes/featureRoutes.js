@@ -1,4 +1,4 @@
-var FeatureDAO = require('../dao/featureDAO');
+let FeatureDAO = require('../dao/featureDAO');
 
 module.exports = function (app) {
 
@@ -13,10 +13,7 @@ module.exports = function (app) {
     });
 
     // get Feature by id
-    /*app.get('/api/features/:feature_id', function (req, res) {
+    app.get('/api/features/:feature_id', function (req, res) {
         FeatureDAO.feature(req, res);
-    });*/
-
-
-
+    });
 };
