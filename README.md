@@ -15,14 +15,25 @@ Load the page
 http://localhost:3000/
 ```
 
-**Api**
+## Api
 
  * /api/animals
  * /api/animals/count
  * /api/animals/[:animal_id]
  
  
- Run API tests
+## Tests
  ```
  npm run test-api
  ```
+ 
+## Code complexity by Plato
+
+```
+npm run code:analyse
+```
+
+## Static code analysis
+```
+npm run code:eslint
+```

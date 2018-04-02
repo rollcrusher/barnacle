@@ -1,4 +1,4 @@
-const AnimalDAO = require('../dao/animalDAO');
+const AnimalDAO = require(global.__base + 'dao/animalDAO');
 
 module.exports = (app) => {
 

@@ -1,4 +1,4 @@
-const FeatureDAO = require('../dao/featureDAO');
+const FeatureDAO = require(global.__base + 'dao/featureDAO');
 
 module.exports = (app) => {
 

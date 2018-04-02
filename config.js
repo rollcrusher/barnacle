@@ -1,8 +1,7 @@
-const base = __dirname;
+const root = require('app-root-path');
 
 const options = {
-    __base: base,
-    __apiTestsDir: base + '/test/api/',
+    __apiTestsDir: root + '/test/api/',
     UTF8: 'utf8',
     URL_HOST: 'http://localhost:3000/',
 };
