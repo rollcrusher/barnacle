@@ -1,73 +1,56 @@
-module.exports = function(config){
-	config.set({
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
 
-		basePath : '',
+// https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000248404-Is-it-possible-to-generate-a-Angular4-coverage-report-
 
-		files : [
+module.exports = function (config) {
+    config.set({
+        basePath: '',
+        files: [
+            {pattern: './front/**/*.spec.ts', included: false},
+            {pattern: './front/**/*.ts', included: false},
+        ],
+        preprocessors: {
+            './front/**/*.ts': ['@angular/cli'],
+        },
+        frameworks: ['jasmine', '@angular/cli'],
+        plugins: [
+            require("karma-jasmine"),
+            require("karma-chrome-launcher"),
+            require("karma-jasmine-html-reporter"),
+            require("@angular/cli/plugins/karma"),
+            require("karma-coverage"),
+            require("karma-coverage-istanbul-reporter")
+        ],
+        client:{
+            clearContext: false // leave Jasmine Spec Runner output visible in browser
+        },
 
-			'src/**/*.js',
-			'test/unit/**/*.js'
-		],
+        //https://github.com/mattlewis92/karma-coverage-istanbul-reporter
+        coverageIstanbulReporter: {
+            dir: 'reports/coverage/',
+            reports: ['html', 'text-summary'],
+            fixWebpackSourcePaths: true,
+            instrumenterOptions: {
+                istanbul: {noCompact: true}
+            },
+            includeAllSources: true,
+        },
 
-		coverageReporter: {
-			dir: 'reports/coverage/',
-			reporters: [
-				{type: 'html', subdir: 'report-html'},
-				{type: 'lcov', subdir: 'report-lcov'}
-			],
-			instrumenterOptions: {
-				istanbul: {noCompact: true}
-			}
-		},
-
-		preprocessors: {
-			// source files, that you wanna generate coverage for
-			// do not include tests or libraries
-			// (these files will be instrumented by Istanbul)
-			'src/**/*.js': ['coverage']
-		},
-
-		autoWatch : true,
-
-		frameworks: ['jasmine'],
-
-		browsers : ['Chrome'],
-		//browsers: ['PhantomJS'],
-
-		port: 9876,
-
-		colors: true,
-
-		// level of logging
-		// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-		logLevel: config.LOG_INFO,
-
-		// Continuous Integration mode
-		// if true, Karma captures browsers, runs the tests and exits
-		singleRun: true,
-
-		plugins: [
-			'karma-chrome-launcher',
-			'karma-jasmine',
-			"karma-chrome-launcher",
-			"karma-firefox-launcher",
-			"karma-jasmine",
-			"karma-junit-reporter",
-			"karma-coverage",
-			"karma-htmlfile-reporter"
-		],
-
-		junitReporter : {
-			outputDir: 'reports/junit',
-			outputFile: 'reports/junit-test-results.xml',
-			suite: 'unit'
-		},
-
-		reporters: ['progress', 'html', 'coverage', 'junit'],
-
-		htmlReporter: {
-			outputFile: 'reports/junit/html-reporter/test-results.html'
-		},
-
-	});
+        angularCli: {
+            environment: 'dev'
+        },
+        mime: {
+            "text/x-typescript": ["ts", "tsx"]
+        },
+        reporters: config.angularCli && config.angularCli.codeCoverage
+            ? ['progress', 'coverage-istanbul']
+            : ['progress', 'kjhtml'],
+        port: 9876,
+        colors: true,
+        logLevel: config.LOG_INFO,
+        autoWatch: true,
+        browsers: ['Chrome'],
+        singleRun: false
+    });
 };

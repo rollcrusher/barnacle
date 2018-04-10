@@ -1,21 +1,16 @@
 # qa3 [barnacle]
 
-Start db
-```
-mongod --dbpath /usr/local/var/mongodb
-```
-
-Start server
+Start back server
 ```
 node server.js
 ```
 
-Load the page 
+Start front server
 ```
-http://localhost:3000/
+npm run front:start
 ```
 
-## Api
+## Services API
 
  * /api/animals
  * /api/animals/count
@@ -23,17 +18,17 @@ http://localhost:3000/
  
  
 ## Tests
+### API tests
  ```
  npm run test-api
  ```
  
-## Code complexity by Plato
+### Front unit test
+``` 
+test:unit
+```
 
+### Front test coverage
 ```
-npm run code:analyse
-```
-
-## Static code analysis
-```
-npm run code:eslint
+test:coverage
 ```
