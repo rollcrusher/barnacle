@@ -1,0 +1,14 @@
+.animal-create {
+    padding: 10px;
+}
+.animal-create-block-title {
+    padding: 15px 0;
+}
+
+.animal-create > label {
+    font-size: small;
+}
+
+.animal-create > .controls {
+    padding: 15px 0;
+}

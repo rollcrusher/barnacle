@@ -43,3 +43,13 @@ module.exports.getAnimalsByFeature = (req, res) => {
     });
 };
 
+module.exports.addAnimal = (req, res) => {
+    Animal.create({ name: req.body.name}, (err, animal) => {
+        if (err) {
+            res.send(err);
+            logger.error(err);
+        }
+        res.json(animal);
+        logger.debug('new animal has been created: ' + animal);
+    });
+};

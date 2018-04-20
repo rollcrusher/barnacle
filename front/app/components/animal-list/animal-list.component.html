@@ -1,9 +1,13 @@
-<h2>Animals</h2>
+<div class="animal-list">
+    <span class="block-title">Animals</span>
 
-<ul class="animals">
-    <li *ngFor="let animal of animals">
-        <a routerLink="/animals/{{animal.id}}">
-            {{animal.name}}
-        </a>
-    </li>
-</ul>
+    <a routerLink="/animals/add">[+]</a>
+
+    <ul class="animals">
+        <li *ngFor="let animal of animals">
+            <a routerLink="/animals/{{animal.id}}">
+                {{animal.name}}
+            </a>
+        </li>
+    </ul>
+</div>

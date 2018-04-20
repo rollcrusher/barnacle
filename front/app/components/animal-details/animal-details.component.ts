@@ -11,6 +11,7 @@ import { AnimalsService } from '../../services/animals.service';
     styleUrls: ['./animal-details.component.css']
 })
 export class AnimalDetailsComponent implements OnInit {
+
     animal: Animal;
 
     constructor(private route: ActivatedRoute,

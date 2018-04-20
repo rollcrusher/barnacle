@@ -1,0 +1,12 @@
+<div class="animal-create">
+    <div class="animal-create-block-title">Add animal</div>
+
+    <label>Name:&nbsp;
+        <input #animalName />
+    </label>
+
+    <div class="controls">
+        <button (click)="add(animalName.value)">Save</button>
+        <button (click)="goBack()">Cancel</button>
+    </div>
+</div>

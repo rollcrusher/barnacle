@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Animal } from '../models/animal.model';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class AnimalsService {
@@ -31,6 +35,14 @@ export class AnimalsService {
             );
     }
 
+    addAnimal(animal: Animal): Observable<Animal> {
+        return this.http.post<Animal>(`${this.animalsUrl}/add`, animal, httpOptions)
+            .pipe(
+                tap(animals => this.log(`added animal [id: ${animal.id}]`)),
+                catchError(this.handleError<Animal>(`addAnimal`))
+            );
+    }
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 
@@ -47,5 +59,9 @@ export class AnimalsService {
 
     private log(message: string) {
         console.log('AnimalService: ' + message);
+    }
+
+    updateAnimal(hero: any) {
+
     }
 }
