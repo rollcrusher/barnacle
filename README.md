@@ -1,6 +1,6 @@
 # qa3 [barnacle]
 
-###Environment
+### Environment
 
 Start mongodb 
 ```
@@ -22,12 +22,12 @@ localhost:4200
 ```
 
 ### Back
-#####Animals
+##### Animals
 
  * localhost:3000/api/animals/list
  * localhost:3000/api/animals/<animal_id>
  
-#####Features
+##### Features
 
  * localhost:3000/api/features/list
  * localhost:3000/api/features/<feature_id> 
