@@ -1,19 +1,12 @@
-const FeatureDAO = require(global.__base + 'dao/featureDAO');
+const FeatureDAO = require('../dao/featureDAO');
 
 module.exports = (app) => {
 
-	// get all Features
-	app.get('/api/features', (req, res) => {
-		FeatureDAO.allFeatures(res);
+	app.get('/api/features/list', (req, res) => {
+		FeatureDAO.getAllFeatures(res);
 	});
 
-	// get Features count
-	app.get('/api/features/count', (req, res) => {
-		FeatureDAO.featuresCount(res);
-	});
-
-	// get Feature by id
 	app.get('/api/features/:feature_id', (req, res) => {
-		FeatureDAO.feature(req, res);
+		FeatureDAO.getFeatureById(req, res);
 	});
 };

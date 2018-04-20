@@ -9,9 +9,13 @@ import {Router} from '@angular/router';
 import {AppComponent}            from './app.component';
 import {AppRoutingModule}        from './app-routing.module';
 
+import {AnimalsService} from  './services/animals.service';
+import {FeaturesService} from  './services/features.service';
+
 import {AnimalListComponent} from  './components/animal-list/animal-list.component';
 import {AnimalDetailsComponent} from  './components/animal-details/animal-details.component';
-import {AnimalsService} from  './services/animals.service';
+import { FeatureDetailsComponent } from './components/feature-details/feature-details.component';
+import { FeatureListComponent } from './components/feature-list/feature-list.component';
 
 @NgModule({
     imports: [
@@ -21,12 +25,22 @@ import {AnimalsService} from  './services/animals.service';
         BrowserAnimationsModule,
         HttpClientModule,
     ],
+
     declarations: [
         AppComponent,
+
         AnimalListComponent,
-        AnimalDetailsComponent
+        AnimalDetailsComponent,
+
+        FeatureListComponent,
+        FeatureDetailsComponent
     ],
-    providers: [AnimalsService],
+
+    providers: [
+        AnimalsService,
+        FeaturesService
+    ],
+
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,0 +1,20 @@
+<div *ngIf="feature">
+    <div class="title">
+        <h2>{{ feature.name | uppercase }}</h2>
+    </div>
+
+    <div class="label">
+        <label>Animals with the feature:</label>
+    </div>
+
+    <div class="container">
+        <ul class="list">
+            <li *ngFor="let animal of feature.animals">
+                <a routerLink="/animals/{{animal.id}}">
+                    {{animal.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>

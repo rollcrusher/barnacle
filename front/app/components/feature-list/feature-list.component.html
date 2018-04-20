@@ -1,0 +1,9 @@
+<h2>Features</h2>
+
+<ul class="features">
+    <li *ngFor="let feature of features">
+        <a routerLink="/features/{{feature.id}}">
+            {{feature.name}}
+        </a>
+    </li>
+</ul>

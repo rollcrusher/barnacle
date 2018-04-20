@@ -3,7 +3,7 @@ let mongoose = require('mongoose');
 const featureSchema = mongoose.Schema(
     {
         name: {type: String, required: true},
-        animals: [{ type : mongoose.Schema.Types.ObjectId, ref: 'animal' }]
+        animals: [{ type : mongoose.Schema.Types.ObjectId, ref: 'AnimalModel' }]
     },
     {collection: 'feature'});
 
@@ -15,4 +15,4 @@ featureSchema.set('toJSON', {
     }
 });
 
-module.exports = mongoose.model('Feature', featureSchema);
+module.exports = mongoose.model('FeatureModel', featureSchema);

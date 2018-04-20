@@ -28,9 +28,9 @@ app.use((req, res, next) => {
 });
 
 //routes
-require(__base + 'routes/animalRoutes.js')(app);
-require(__base + 'routes/featureRoutes.js')(app);
-require(__base + 'routes/flowRoutes.js')(app);
+require(__base + 'routes/animalRoutes')(app);
+require(__base + 'routes/featureRoutes')(app);
+require(__base + 'routes/flowRoutes')(app);
 
 const server = app.listen(3000, function () {
 	const host = server.address().address;

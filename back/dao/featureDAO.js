@@ -2,7 +2,7 @@ const log4js = require('log4js');
 const logger = log4js.getLogger();
 logger.level = 'debug';
 
-const Feature = require('../models/Feature');
+const Feature = require('../models/FeatureModel');
 
 module.exports.getAllFeatures = (res) => {
     Feature.find((err, features) => {
@@ -16,7 +16,7 @@ module.exports.getAllFeatures = (res) => {
 module.exports.getFeatureById = (req, res) => {
     const query = {"_id": req.params.feature_id};
 
-    Feature.findOne(query).populate('features').exec((err, feature) => {
+    Feature.findOne(query).populate('animals').exec((err, feature) => {
         if (err) {
             res.send({error: err.message});
             logger.error(err);
@@ -27,4 +27,3 @@ module.exports.getFeatureById = (req, res) => {
         logger.debug('feature by id : ' + feature);
     });
 };
-

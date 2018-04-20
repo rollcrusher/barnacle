@@ -68,6 +68,7 @@
   },
   "scripts": {
     "ng": "node_modules/.bin/ng",
+    "back:start": "node server.js",
     "front:start": "node_modules/.bin/ng serve",
     "build": "node_modules/.bin/ng build --prod",
     "e2e": "node_modules/.bin/ng e2e",
