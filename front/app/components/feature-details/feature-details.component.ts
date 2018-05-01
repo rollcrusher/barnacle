@@ -24,7 +24,7 @@ export class FeatureDetailsComponent implements OnInit {
     }
 
     getFeature(): void {
-        const featureId = this.route.snapshot.paramMap.get('feature_id');
+        const featureId = this.route.snapshot.paramMap.get('featureId');
         this.featuresService.getFeatureById(featureId)
             .subscribe(responce => {
                 if (typeof responce.id !== "undefined") {

@@ -21,4 +21,9 @@ export class AnimalListComponent implements OnInit {
         this.animalsService.getAnimals()
             .subscribe(animals => this.animals = animals);
     }
+
+    deleteAnimal(animal: Animal): void {
+        this.animals = this.animals.filter(h => h !== animal);
+        this.animalsService.deleteAnimal(animal).subscribe();
+    }
 }

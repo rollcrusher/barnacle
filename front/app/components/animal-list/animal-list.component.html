@@ -8,6 +8,8 @@
             <a routerLink="/animals/{{animal.id}}">
                 {{animal.name}}
             </a>
+
+            <button title="Delete animal" (click)="deleteAnimal(animal)">x</button>
         </li>
     </ul>
 </div>

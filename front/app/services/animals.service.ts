@@ -35,11 +35,36 @@ export class AnimalsService {
             );
     }
 
-    addAnimal(animal: Animal): Observable<Animal> {
-        return this.http.post<Animal>(`${this.animalsUrl}/add`, animal, httpOptions)
+    createAnimal(animal: Animal): Observable<Animal> {
+        let featureIds = [];
+        animal.features.forEach(feature => {
+            featureIds.push(feature.id);
+        });
+        animal.features = featureIds;
+
+        return this.http.put<Animal>(`${this.animalsUrl}/create`, JSON.stringify(animal), httpOptions)
             .pipe(
                 tap(animals => this.log(`added animal [id: ${animal.id}]`)),
                 catchError(this.handleError<Animal>(`addAnimal`))
+            );
+    }
+
+    deleteAnimal (animal: Animal | number): Observable<Animal> {
+        const id = typeof animal === 'number' ? animal : animal.id;
+        const url = `${this.animalsUrl}/delete/${id}`;
+
+        return this.http.delete<Animal>(url, httpOptions).pipe(
+            tap(_ => this.log(`deleted animal id=${id}`)),
+            catchError(this.handleError<Animal>('deleteAnimal'))
+        );
+    }
+
+    updateAnimal(animal: Animal): Observable<any> {
+        console.log(animal);
+        return this.http.post<Animal>(`${this.animalsUrl}/edit`, JSON.stringify(animal), httpOptions)
+            .pipe(
+                tap(_ => this.log(`updated animal [id: ${JSON.stringify(animal)}]`)), //todo: getid
+                catchError(this.handleError<Animal>(`updateAnimal`))
             );
     }
 
@@ -59,9 +84,5 @@ export class AnimalsService {
 
     private log(message: string) {
         console.log('AnimalService: ' + message);
-    }
-
-    updateAnimal(hero: any) {
-
     }
 }

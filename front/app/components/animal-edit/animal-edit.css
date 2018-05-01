@@ -1,0 +1,14 @@
+.animal-edit {
+    padding: 10px;
+}
+.animal-edit-block-title {
+    padding: 15px 0;
+}
+
+.animal-edit > label {
+    font-size: small;
+}
+
+.animal-edit .controls {
+    padding: 15px 0;
+}

@@ -3,20 +3,19 @@ import { Location } from '@angular/common';
 
 import { Animal } from '../../models/animal.model';
 import { AnimalsService } from '../../services/animals.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Feature } from '../../models/feature.model';
-import { FeaturesService } from '../../services/features.service';
-
-import {ObjectId} from 'mongodb';
-
+import { ActivatedRoute, Router } from "@angular/router";
+import { Feature } from "../../models/feature.model";
+import { FeaturesService } from "../../services/features.service";
 
 @Component({
-    selector: 'app-animal-create',
-    templateUrl: './animal-create.html',
-    styleUrls: ['./animal-create.css']
+    selector: 'app-animal-edit',
+    templateUrl: './animal-edit.html',
+    styleUrls: ['./animal-edit.css']
 })
 
-export class AnimalCreateComponent implements OnInit {
+export class AnimalEditComponent implements OnInit {
+
+    animal: Animal;
 
     featureNameCriteria: string;
     features: Feature[];
@@ -29,12 +28,15 @@ export class AnimalCreateComponent implements OnInit {
                 private animalsService: AnimalsService,
                 private featuresService: FeaturesService,
                 private location: Location) {
+        this.animal = new Animal();
     }
 
     ngOnInit() {
         this.features = [];
         this.selectedFeatures = [];
         this.message = '';
+        this.defineAnimal();
+        this.defineFeaturesList();
     }
 
     defineFeaturesList(): void {
@@ -51,6 +53,24 @@ export class AnimalCreateComponent implements OnInit {
             });
     }
 
+    defineAnimal(): void {
+        const animalId = this.route.snapshot.paramMap.get('animalId');
+        this.animalsService.getAnimalById(animalId)
+            .subscribe(responce => {
+                if (typeof responce.id !== 'undefined') {
+                    this.animal = responce;
+                    this.selectedFeatures = this.animal.features;
+                } else {
+                    throw responce;
+                }
+            });
+    }
+
+    onFeatureDelete(feature: Feature): void {
+        this.selectedFeatures = this.selectedFeatures.filter(f => f.id !== feature.id);
+        this.defineFeaturesList();
+    }
+
     onFeatureNameInputChange(featureName: string): void {
         this.featureNameCriteria = featureName;
         this.defineFeaturesList();
@@ -64,45 +84,12 @@ export class AnimalCreateComponent implements OnInit {
         this.defineFeaturesList();
     }
 
-    onFeatureDelete(feature: Feature): void {
-        this.selectedFeatures = this.selectedFeatures.filter(f => f.id !== feature.id);
-        this.defineFeaturesList();
-    }
+    saveAnimal(): void {
+        this.animal.features = this.selectedFeatures;
 
-    createAnimal(name: string): void {
-        name = name.trim();
-
-        if (!name) {
-            return;
-        }
-
-        let animal = new Animal();
-        animal.name = name;
-        animal.features = this.selectedFeatures;
-
-
-        this.animalsService.createAnimal(animal)
+        this.animalsService.updateAnimal(this.animal)
             .subscribe(data => {
-                this.router.navigate(['animals/list']);
+                this.router.navigate(['animals/' + this.animal.id]);
             });
-    }
-
-    createFeature(name: string): void {
-        name = name.trim();
-
-        if (!name) {
-            return;
-        }
-
-        this.featuresService.createFeature({ name } as Feature)
-            .subscribe(data => {
-                this.message = `${name} has been created`;
-                this.defineFeaturesList();
-            });
-
-    }
-
-    clearMessage(): void {
-        this.message = '';
     }
 }

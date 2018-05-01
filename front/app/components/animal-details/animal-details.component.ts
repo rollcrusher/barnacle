@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { Animal } from '../../models/animal.model';
 import { AnimalsService } from '../../services/animals.service';
@@ -14,25 +13,34 @@ export class AnimalDetailsComponent implements OnInit {
 
     animal: Animal;
 
-    constructor(private route: ActivatedRoute,
-                private location: Location,
+    constructor(private router: Router,
+                private route: ActivatedRoute,
                 private animalsService: AnimalsService) {
     }
 
-    ngOnInit() {
-        this.getAnimal();
-    }
+        ngOnInit() {
+            this.getAnimal();
+        }
 
-    getAnimal(): void {
-        const animalId = this.route.snapshot.paramMap.get('animal_id');
-        this.animalsService.getAnimalById(animalId)
-            .subscribe(responce => {
-                if (typeof responce.id !== "undefined") {
-                    this.animal = responce;
-                } else {
-                    throw responce;
-                }
-                console.log(responce);
-            });
+        getAnimal(): void {
+            const animalId = this.route.snapshot.paramMap.get('animalId');
+            this.animalsService.getAnimalById(animalId)
+                .subscribe(responce => {
+                    console.log("responce:");
+                    console.log(responce);
+                    if (typeof responce !== 'undefined') {
+                        this.animal = responce;
+                    } else {
+                        throw responce;
+                    }
+                    console.log(responce);
+                });
+        }
+
+    toEditAnimal(animal: Animal): void {
+        if (!animal) {
+            return;
+        }
+        this.router.navigate(['animals/edit/' + animal.id]);
     }
 }

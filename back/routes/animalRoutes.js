@@ -6,11 +6,19 @@ module.exports = (app) => {
         AnimalDAO.getAllAnimals(res);
     });
 
-    app.get('/api/animals/:animal_id', (req, res) => {
+    app.get('/api/animals/:animalId', (req, res) => {
         AnimalDAO.getAnimalById(req, res);
     });
 
-    app.post('/api/animals/add', (req, res) => {
-        AnimalDAO.addAnimal(req, res);
+    app.put('/api/animals/create', (req, res) => {
+        AnimalDAO.createAnimal(req, res);
+    });
+
+    app.post('/api/animals/edit', (req, res) => {
+        AnimalDAO.editAnimal(req, res);
+    });
+
+    app.delete('/api/animals/delete/:animalId', (req, res) => {
+        AnimalDAO.deleteAnimal(req, res);
     });
 };

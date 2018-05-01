@@ -25,12 +25,12 @@ localhost:4200
 #####Animals
 
  * localhost:3000/api/animals/list
- * localhost:3000/api/animals/<animal_id>
+ * localhost:3000/api/animals/<animalId>
  
 #####Features
 
  * localhost:3000/api/features/list
- * localhost:3000/api/features/<feature_id> 
+ * localhost:3000/api/features/<featureId> 
  
 ### Tests
 

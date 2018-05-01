@@ -1,9 +1,9 @@
-<div class="animal-create">
-    <div class="animal-create-block-title">Add animal</div>
+<div class="animal-edit">
+    <div class="animal-edit-block-title">Add animal</div>
 
     <div class="property">
         <span>Name:</span>
-        <input #animalName/>
+        <input [(ngModel)]="animal.name" placeholder="name"/>
     </div>
 
     <div class="property">
@@ -19,7 +19,7 @@
             <button (click)="createFeature(featureName.value)">+</button>
         </span>
 
-        <div *ngIf="selectedFeatures.length !== 0" class="feature-list-title" >Selected features:</div>
+        <div *ngIf="selectedFeatures.length !== 0" class="feature-list-title">Selected features:</div>
         <div class="feature-list" *ngFor="let selectedFeature of selectedFeatures">
             <span>{{selectedFeature.name}}</span>
             <span>
@@ -43,6 +43,6 @@
 
     <div class="controls">
         <button (click)="goBack()">Cancel</button>
-        <button (click)="createAnimal(animalName.value)">Save</button>
+        <button (click)="saveAnimal()">Save</button>
     </div>
 </div>

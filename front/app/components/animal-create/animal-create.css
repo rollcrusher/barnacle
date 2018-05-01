@@ -1,6 +1,7 @@
 .animal-create {
     padding: 10px;
 }
+
 .animal-create-block-title {
     padding: 15px 0;
 }
@@ -11,4 +12,21 @@
 
 .animal-create > .controls {
     padding: 15px 0;
+}
+
+.animal-create .messages {
+    padding: 5px 0;
+    font-size: x-small;
+}
+
+.animal-create > .property {
+    padding: 5px 0;
+}
+
+.animal-create .feature-list {
+    padding: 5px 0 5px 0;
+}
+
+.animal-create .feature-list-title {
+    padding: 5px 0;
 }
