@@ -1,0 +1,48 @@
+<div class="animal-create">
+    <div class="animal-create-block-title">Add animal</div>
+
+    <div class="property">
+        <span>Name:</span>
+        <input #animalName/>
+    </div>
+
+    <div class="property">
+        <span>Feature:</span>
+
+        <span>
+            <input #featureName
+                   (keyup)="onFeatureNameInputChange(featureName.value)"
+                   (keyup.enter)="onFeatureSelect(featureName.value)">
+        </span>
+
+        <span *ngIf="features.length == 0 && featureName.value.trim().length > 0" class="name">
+            <button (click)="createFeature(featureName.value)">+</button>
+        </span>
+
+        <div *ngIf="selectedFeatures.length !== 0" class="feature-list-title" >Selected features:</div>
+        <div class="feature-list" *ngFor="let selectedFeature of selectedFeatures">
+            <span>{{selectedFeature.name}}</span>
+            <span>
+              <button (click)="onFeatureDelete(selectedFeature)">x</button>
+            </span>
+        </div>
+
+        <div *ngIf="features.length !== 0" class="feature-list-title">Select a feature:</div>
+        <div class="feature-list" *ngFor="let feature of features">
+            <span>{{feature.name}}</span>
+            <span>
+              <button (click)="onFeatureSelect(feature)">+</button>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="message.length > 0" class="messages">
+        <span>{{message}}</span>
+        <span><button (click)="clearMessage()">x</button></span>
+    </div>
+
+    <div class="controls">
+        <button (click)="goToAnimalList()">Cancel</button>
+        <button (click)="createAnimal(animalName.value)">Save</button>
+    </div>
+</div>

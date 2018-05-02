@@ -1,0 +1,16 @@
+.animal-list {
+    padding: 15px;
+}
+
+.block-title {
+    font-size: large;
+}
+
+.animal-list a {
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+}

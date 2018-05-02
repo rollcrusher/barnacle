@@ -1,18 +1,23 @@
-<div *ngIf="animal">
-    <div class="title">
-        <h2>{{ animal.name | uppercase }}</h2>
-    </div>
+<div class="animal-details">
+    <div *ngIf="animal">
+        <div class="title">
+            <h2>{{ animal.name | uppercase }}</h2>
+        </div>
 
-    <div class="label">
-        <label>Has features:</label>
-    </div>
+        <div class="controls">
+            <button (click)="toEditAnimal(animal)">Edit</button>
+        </div>
 
-    <div class="container">
-        <ul class="list">
-            <li *ngFor="let feature of animal.features">
-                {{feature.name}}
-            </li>
-        </ul>
-    </div>
+        <div class="label">
+            <label>Has features:</label>
+        </div>
 
+        <div class="container">
+            <ul class="list">
+                <li *ngFor="let feature of animal.features">
+                    {{feature.name}}
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

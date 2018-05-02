@@ -1,0 +1,32 @@
+.animal-edit {
+    padding: 10px;
+}
+
+.animal-edit-block-title {
+    padding: 15px 0;
+}
+
+.animal-edit > label {
+    font-size: small;
+}
+
+.animal-edit > .controls {
+    padding: 15px 0;
+}
+
+.animal-edit .messages {
+    padding: 5px 0;
+    font-size: x-small;
+}
+
+.animal-edit > .property {
+    padding: 5px 0;
+}
+
+.animal-edit .feature-list {
+    padding: 5px 0 5px 0;
+}
+
+.animal-edit .feature-list-title {
+    padding: 5px 0;
+}

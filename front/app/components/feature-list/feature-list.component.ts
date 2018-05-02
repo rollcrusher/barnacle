@@ -9,6 +9,7 @@ import { FeaturesService } from '../../services/features.service';
   styleUrls: ['./feature-list.component.css']
 })
 export class FeatureListComponent implements OnInit {
+
   features: Feature[];
 
   constructor(private featuresService: FeaturesService) { }
