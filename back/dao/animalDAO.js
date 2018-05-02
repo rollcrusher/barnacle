@@ -44,10 +44,6 @@ module.exports.getAnimalsByFeature = (req, res) => {
 };
 
 module.exports.createAnimal = (req, res) => {
-
-    console.log("req.body >>>");
-    console.log(req.body);
-
     Animal.create(req.body, (err, animal) => {
         if (err) {
             res.send(err);
@@ -59,9 +55,6 @@ module.exports.createAnimal = (req, res) => {
 };
 
 module.exports.editAnimal = (req, res) => {
-    console.log(">>>>");
-    console.log(req.body);
-
     const query = {
         '_id': req.body.id
     };

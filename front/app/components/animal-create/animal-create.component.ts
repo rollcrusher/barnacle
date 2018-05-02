@@ -102,6 +102,10 @@ export class AnimalCreateComponent implements OnInit {
 
     }
 
+    goToAnimalList(): void {
+        this.router.navigate(['animals/list']);
+    }
+
     clearMessage(): void {
         this.message = '';
     }

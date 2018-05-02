@@ -85,11 +85,19 @@ export class AnimalEditComponent implements OnInit {
     }
 
     saveAnimal(): void {
-        this.animal.features = this.selectedFeatures;
+        let arr = [];
+        this.selectedFeatures.forEach(function(feature) {
+            arr.push(feature.id);
+        });
+        this.animal.features = arr;
 
         this.animalsService.updateAnimal(this.animal)
             .subscribe(data => {
                 this.router.navigate(['animals/' + this.animal.id]);
             });
+    }
+
+    goToAnimalDetails(): void {
+        this.router.navigate(['animals/' + this.animal.id]);
     }
 }

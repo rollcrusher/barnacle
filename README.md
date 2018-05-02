@@ -9,7 +9,8 @@ mongod --dbpath /usr/local/var/mongodb
 
 Start back server
 ```
-node server.js
+npm run back:start
+
 ```
 
 Start front server
@@ -24,13 +25,19 @@ localhost:4200
 ### Back
 #####Animals
 
- * localhost:3000/api/animals/list
- * localhost:3000/api/animals/<animalId>
+ * api/animals/list
+ * api/animals/<animalId>
+ * api/animals/create
+ * api/animals/edit
+ * api/animals/delete/\<animalId>
  
 #####Features
 
- * localhost:3000/api/features/list
- * localhost:3000/api/features/<featureId> 
+ * api/features/search/all
+ * api/features/search/id/\<featureId>
+ * api/features/search/name/\<featureName>
+ * api/features/create
+
  
 ### Tests
 
