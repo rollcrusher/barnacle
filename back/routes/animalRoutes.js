@@ -2,11 +2,11 @@ const AnimalDAO = require('../dao/animalDAO');
 
 module.exports = (app) => {
 
-    app.get('/api/animals/list', (req, res) => {
+    app.get('/api/animals/search/all', (req, res) => {
         AnimalDAO.getAllAnimals(res);
     });
 
-    app.get('/api/animals/:animalId', (req, res) => {
+    app.get('/api/animals/search/id/:animalId', (req, res) => {
         AnimalDAO.getAnimalById(req, res);
     });
 

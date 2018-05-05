@@ -5,59 +5,62 @@ logger.level = 'debug';
 
 const Feature = require('../models/FeatureModel');
 
-module.exports.getAllFeatures = (res) => {
-    Feature.find((err, features) => {
-        if (err)
-            res.send(err);
-        res.json(features);
-        logger.debug('features : ' + features);
-    });
-};
+module.exports = {
 
-module.exports.getFeatureById = (req, res) => {
-    let featureId;
+    getAllFeatures: (res) => {
+        Feature.find((err, features) => {
+            if (err)
+                res.send(err);
+            res.json(features);
+            logger.debug('features : ' + features);
+        });
+    },
 
-    try {
-        featureId = mongoose.Types.ObjectId(req.params.featureId);
-    } catch (err) {
-        res.json([]);
-        logger.debug('feature by id : ' + req.params.featureId);
-        return;
-    }
+    getFeatureById: (req, res) => {
+        let featureId;
 
-    const query = {"_id": featureId};
-
-    Feature.findOne(query).populate('animals').exec((err, feature) => {
-        if (err) {
-            res.send({error: err.message});
-            logger.error(err);
+        try {
+            featureId = mongoose.Types.ObjectId(req.params.featureId);
+        } catch (err) {
+            res.json([]);
+            logger.debug('feature by id : ' + req.params.featureId);
             return;
         }
 
-        res.json(feature);
-        logger.debug('feature by id : ' + feature);
-    });
-};
+        const query = {"_id": featureId};
 
-module.exports.getFeatureByName = (req, res) => {
-    const query = {"name":  {'$regex': req.params.featureName}};
-    Feature.find(query).exec((err, features) => {
-        if (err) {
-            res.send(err);
-            logger.error(err);
-        }
-        res.json(features);
-        logger.debug('features by name : ' + features);
-    });
-};
+        Feature.findOne(query).populate('animals').exec((err, feature) => {
+            if (err) {
+                res.send({error: err.message});
+                logger.error(err);
+                return;
+            }
 
-module.exports.createFeature = (req, res) => {
-    Feature.create({name: req.body.name}, (err, feature) => {
-        if (err) {
-            res.send(err);
-            logger.error(err);
-        }
-        res.json(feature);
-        logger.debug('new feature has been created: ' + feature);
-    });
+            res.json(feature);
+            logger.debug('feature by id : ' + feature);
+        });
+    },
+
+    getFeatureByName: (req, res) => {
+        const query = {"name": {'$regex': req.params.featureName}};
+        Feature.find(query).exec((err, features) => {
+            if (err) {
+                res.send(err);
+                logger.error(err);
+            }
+            res.json(features);
+            logger.debug('features by name : ' + features);
+        });
+    },
+
+    createFeature: (req, res) => {
+        Feature.create({name: req.body.name}, (err, feature) => {
+            if (err) {
+                res.send(err);
+                logger.error(err);
+            }
+            res.json(feature);
+            logger.debug('new feature has been created: ' + feature);
+        });
+    }
 };

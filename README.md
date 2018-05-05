@@ -25,8 +25,8 @@ localhost:4200
 ### Back
 ##### Animals
 
- * api/animals/list
- * api/animals/<animalId>
+ * api/animals/search/all
+ * api/animals/search/id/\<animalId>
  * api/animals/create
  * api/animals/edit
  * api/animals/delete/\<animalId>
@@ -42,8 +42,18 @@ localhost:4200
 ### Tests
 
 ##### API tests
+
+The following libraries were used:
+* mochajs
+* chai
+* lodash-match-pattern
+* mocha-allure-reporter
+
+Commands for API tests launching:
+
  ```
- npm run test-api
+ npm run test:api:list
+ npm run test:api:allure
  ```
  
 ##### Front unit test

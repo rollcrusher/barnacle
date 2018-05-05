@@ -9,6 +9,7 @@ const methodOverride = require('method-override');
 // db
 const mongoose = require('mongoose');
 const database = require(__base + 'config/database');
+console.log('connect to ' + database.url);
 mongoose.connect(database.url);
 const db  = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

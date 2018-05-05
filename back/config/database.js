@@ -1,3 +1,5 @@
 module.exports = {
-	url : 'mongodb://localhost/barnacle'
+    dbName: 'barnacle',
+    dumpFileName: 'barnacle.test.gz',
+    url: 'mongodb://localhost/barnacle'
 };

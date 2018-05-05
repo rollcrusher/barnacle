@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const animalSchema = mongoose.Schema(
     {
         name: {type: String, required: true},
-        features: [{ type : mongoose.Schema.Types.ObjectId, ref: 'FeatureModel' }]
+        features: [{ type : mongoose.Schema.Types.ObjectId, ref: 'FeatureModel' }],
+        images: [{type: String}]
     },
     {collection: 'animal'});
 
