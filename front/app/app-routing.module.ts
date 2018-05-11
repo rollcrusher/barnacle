@@ -1,13 +1,13 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AnimalListComponent }      from './components/animal-list/animal-list.component';
-import { AnimalDetailsComponent } from "./components/animal-details/animal-details.component";
-import { AnimalCreateComponent } from "./components/animal-create/animal-create.component";
-import { AnimalEditComponent } from "./components/animal-edit/animal-edit.component";
+import { AnimalListComponent } from './components/animal-list/animal-list.component';
+import { AnimalDetailsComponent } from './components/animal-details/animal-details.component';
+import { AnimalCreateComponent } from './components/animal-create/animal-create.component';
+import { AnimalEditComponent } from './components/animal-edit/animal-edit.component';
 
-import { FeatureListComponent }      from './components/feature-list/feature-list.component';
-import { FeatureDetailsComponent } from "./components/feature-details/feature-details.component";
+import { FeatureListComponent } from './components/feature-list/feature-list.component';
+import { FeatureDetailsComponent } from './components/feature-details/feature-details.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'animals/list', pathMatch: 'full' },

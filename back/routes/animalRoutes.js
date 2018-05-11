@@ -10,6 +10,10 @@ module.exports = (app) => {
         AnimalDAO.getAnimalById(req, res);
     });
 
+    app.get('/api/animals/search/propagated/id/:animalId', (req, res) => {
+        AnimalDAO.getAnimalWithPopulatedFeaturesById(req, res);
+    });
+
     app.put('/api/animals/create', (req, res) => {
         AnimalDAO.createAnimal(req, res);
     });

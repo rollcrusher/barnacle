@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Animal } from '../../models/animal.model';
 import { AnimalsService } from '../../services/animals.service';

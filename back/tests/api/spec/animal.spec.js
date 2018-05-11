@@ -98,4 +98,12 @@ describe('animal api tests', () => {
             done();
         });
     });
+
+    it.only('should delete an animal and return a relevant message', (done) => {
+        request.delete(config.URL_HOST + 'api/animals/delete/5ae2f89adb2a9d175298a501', (err, res, body) => {
+            const responce = JSON.parse(body);
+            expect(responce).to.matchPattern({ message: 'Success', id: '5ae2f89adb2a9d175298a501' });
+            done();
+        });
+    });
 });

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 import { Feature } from '../../models/feature.model';
 import { FeaturesService } from '../../services/features.service';
@@ -27,7 +27,7 @@ export class FeatureDetailsComponent implements OnInit {
         const featureId = this.route.snapshot.paramMap.get('featureId');
         this.featuresService.getFeatureById(featureId)
             .subscribe(responce => {
-                if (typeof responce.id !== "undefined") {
+                if (typeof responce.id !== 'undefined') {
                     this.feature = responce;
                 } else {
                     throw responce;

@@ -20,7 +20,7 @@ export class AnimalsService {
     }
 
     getAnimals(): Observable<Animal[]> {
-        return this.http.get<Animal[]>(this.animalsUrl + '/list')
+        return this.http.get<Animal[]>(this.animalsUrl + '/search/all')
             .pipe(
                 tap(animals => this.log(`fetched animals`)),
                 catchError(this.handleError('getAnimals', []))
@@ -28,7 +28,7 @@ export class AnimalsService {
     }
 
     getAnimalById(id: string): Observable<Animal> {
-        return this.http.get<Animal>(`${this.animalsUrl}/${id}`)
+        return this.http.get<Animal>(`${this.animalsUrl}/search/propagated/id/${id}`)
             .pipe(
                 tap(animals => this.log(`fetched animal by id ${id}`)),
                 catchError(this.handleError<Animal>(`getAnimalById ${id}`))
@@ -36,7 +36,7 @@ export class AnimalsService {
     }
 
     createAnimal(animal: Animal): Observable<Animal> {
-        let featureIds = [];
+        const featureIds = [];
         animal.features.forEach(feature => {
             featureIds.push(feature.id);
         });
@@ -60,11 +60,9 @@ export class AnimalsService {
     }
 
     updateAnimal(animal: Animal): Observable<any> {
-        console.log(">>animal");
-        console.log(animal);
         return this.http.post<Animal>(`${this.animalsUrl}/edit`, JSON.stringify(animal), httpOptions)
             .pipe(
-                tap(_ => this.log(`updated animal [id: ${JSON.stringify(animal)}]`)), //todo: getid
+                tap(_ => this.log(`updated animal [id: ${JSON.stringify(animal)}]`)),
                 catchError(this.handleError<Animal>(`updateAnimal`))
             );
     }

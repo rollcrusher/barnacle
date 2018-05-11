@@ -27,7 +27,7 @@ module.exports = {
             return;
         }
 
-        const query = {"_id": featureId};
+        const query = {'_id': featureId};
 
         Feature.findOne(query).populate('animals').exec((err, feature) => {
             if (err) {
@@ -42,7 +42,7 @@ module.exports = {
     },
 
     getFeatureByName: (req, res) => {
-        const query = {"name": {'$regex': req.params.featureName}};
+        const query = {'name': {'$regex': req.params.featureName}};
         Feature.find(query).exec((err, features) => {
             if (err) {
                 res.send(err);

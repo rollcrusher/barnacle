@@ -3,9 +3,9 @@ import { Location } from '@angular/common';
 
 import { Animal } from '../../models/animal.model';
 import { AnimalsService } from '../../services/animals.service';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Feature } from "../../models/feature.model";
-import { FeaturesService } from "../../services/features.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { Feature } from '../../models/feature.model';
+import { FeaturesService } from '../../services/features.service';
 
 @Component({
     selector: 'app-animal-edit',
@@ -45,7 +45,7 @@ export class AnimalEditComponent implements OnInit {
             .subscribe(responce => {
                 if (typeof responce !== 'undefined') {
                     this.features = responce.filter(feature => {
-                        return typeof this.selectedFeatures.find(f => f.id === feature.id) == 'undefined';
+                        return typeof this.selectedFeatures.find(f => f.id === feature.id) === 'undefined';
                     });
                 } else {
                     throw responce;
@@ -77,7 +77,7 @@ export class AnimalEditComponent implements OnInit {
     }
 
     onFeatureSelect(feature: Feature): void {
-        if (typeof this.selectedFeatures.find(f => f.id === feature.id) == 'undefined') {
+        if (typeof this.selectedFeatures.find(f => f.id === feature.id) === 'undefined') {
             this.selectedFeatures.push(feature);
         }
 
@@ -85,11 +85,11 @@ export class AnimalEditComponent implements OnInit {
     }
 
     saveAnimal(): void {
-        let arr = [];
+        const featureArr = [];
         this.selectedFeatures.forEach(function(feature) {
-            arr.push(feature.id);
+            featureArr.push(feature.id);
         });
-        this.animal.features = arr;
+        this.animal.features = featureArr;
 
         this.animalsService.updateAnimal(this.animal)
             .subscribe(data => {

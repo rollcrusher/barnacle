@@ -8,7 +8,6 @@ module.exports = {
 
     getAllAnimals: (res) => {
         Animal.find((err, animals) => {
-            console.log(animals);
             if (err) {
                 res.send(err);
                 logger.error(err);
@@ -100,7 +99,7 @@ module.exports = {
     deleteAnimal: (req, res) => {
         const query = {'_id': req.params.animalId};
 
-        Animal.remove(query, (err, animal) => {
+        Animal.remove(query, (err) => {
             if (err) {
                 res.send(err);
                 logger.error(err);

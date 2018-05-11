@@ -43,7 +43,7 @@ export class AnimalCreateComponent implements OnInit {
             .subscribe(responce => {
                 if (typeof responce !== 'undefined') {
                     this.features = responce.filter(feature => {
-                        return typeof this.selectedFeatures.find(f => f.id === feature.id) == 'undefined';
+                        return typeof this.selectedFeatures.find(f => f.id === feature.id) === 'undefined';
                     });
                 } else {
                     throw responce;
@@ -57,7 +57,7 @@ export class AnimalCreateComponent implements OnInit {
     }
 
     onFeatureSelect(feature: Feature): void {
-        if (typeof this.selectedFeatures.find(f => f.id === feature.id) == 'undefined') {
+        if (typeof this.selectedFeatures.find(f => f.id === feature.id) === 'undefined') {
             this.selectedFeatures.push(feature);
         }
 
@@ -76,7 +76,7 @@ export class AnimalCreateComponent implements OnInit {
             return;
         }
 
-        let animal = new Animal();
+        const animal = new Animal();
         animal.name = name;
         animal.features = this.selectedFeatures;
 
