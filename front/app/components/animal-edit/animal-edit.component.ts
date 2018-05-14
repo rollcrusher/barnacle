@@ -10,7 +10,7 @@ import { FeaturesService } from '../../services/features.service';
 @Component({
     selector: 'app-animal-edit',
     templateUrl: './animal-edit.html',
-    styleUrls: ['./animal-edit.css']
+    styleUrls: ['./animal-edit.scss']
 })
 
 export class AnimalEditComponent implements OnInit {

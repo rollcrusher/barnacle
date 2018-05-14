@@ -12,7 +12,7 @@ import { FeatureDetailsComponent } from './components/feature-details/feature-de
 const routes: Routes = [
     { path: '', redirectTo: 'animals/list', pathMatch: 'full' },
 
-    { path: 'animals/add', component: AnimalCreateComponent },
+    { path: 'animals/create', component: AnimalCreateComponent },
     { path: 'animals/list', component: AnimalListComponent },
     { path: 'animals/:animalId', component: AnimalDetailsComponent },
     { path: 'animals/edit/:animalId', component: AnimalEditComponent },

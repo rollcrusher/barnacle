@@ -7,7 +7,7 @@ import { AnimalsService } from '../../services/animals.service';
 @Component({
     selector: 'app-animal-details',
     templateUrl: './animal-details.component.html',
-    styleUrls: ['./animal-details.component.css']
+    styleUrls: ['./animal-details.component.scss']
 })
 export class AnimalDetailsComponent implements OnInit {
 
@@ -35,10 +35,14 @@ export class AnimalDetailsComponent implements OnInit {
                 });
         }
 
-    toEditAnimal(animal: Animal): void {
+    goToEditAnimal(animal: Animal): void {
         if (!animal) {
             return;
         }
         this.router.navigate(['animals/edit/' + animal.id]);
+    }
+
+    deleteAnimal(animal: Animal): void {
+        this.animalsService.deleteAnimal(animal).subscribe();
     }
 }

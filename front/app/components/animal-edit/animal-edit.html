@@ -1,48 +1,65 @@
-<div class="animal-edit">
-    <div class="animal-edit-block-title">Add animal</div>
-
-    <div class="property">
-        <span>Name:</span>
-        <input [(ngModel)]="animal.name" placeholder="name"/>
+<div class="card border-primary mb-3 animal-edit">
+    <div class="card-header animal-edit-header">
+        <div class="animal-edit-block-title">Edit animal</div>
+        <span style="width: 100%"></span>
+        <button class="btn btn-primary btn-sm flex-item create-animal-button" title="Go to animal details"
+                (click)="goToAnimalDetails()">Cancel
+        </button>
+        <button class="btn btn-primary btn-sm flex-item create-animal-button" title="Save modifications"
+                (click)="saveAnimal()">Save
+        </button>
     </div>
 
-    <div class="property">
-        <span>Feature:</span>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">Name:</div>
+                <div class="col-sm-2"><input [(ngModel)]="animal.name" placeholder="name"/></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">Feature:</div>
+                <div style="width: 300px" class="col-sm-2">
+                    <span><input #featureName
+                           (keyup)="onFeatureNameInputChange(featureName.value)"
+                           (keyup.enter)="onFeatureSelect(featureName.value)"></span>
 
-        <span>
-            <input #featureName
-                   (keyup)="onFeatureNameInputChange(featureName.value)"
-                   (keyup.enter)="onFeatureSelect(featureName.value)">
-        </span>
+                    <span *ngIf="features.length == 0 && featureName.value.trim().length > 0" class="name">
+                        <button (click)="createFeature(featureName.value)">+</button>
+                    </span>
+                </div>
+            </div>
 
-        <span *ngIf="features.length == 0 && featureName.value.trim().length > 0" class="name">
-            <button (click)="createFeature(featureName.value)">+</button>
-        </span>
 
-        <div *ngIf="selectedFeatures.length !== 0" class="feature-list-title">Selected features:</div>
-        <div class="feature-list" *ngFor="let selectedFeature of selectedFeatures">
-            <span>{{selectedFeature.name}}</span>
-            <span>
-              <button (click)="onFeatureDelete(selectedFeature)">x</button>
-            </span>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div *ngIf="selectedFeatures.length !== 0" class="feature-list-title">Selected features:</div>
+                    <div class="feature-list" *ngFor="let selectedFeature of selectedFeatures">
+                        <span>{{selectedFeature.name}}</span>
+                        <span>
+                          <button (click)="onFeatureDelete(selectedFeature)">x</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <div *ngIf="features.length !== 0" class="feature-list-title">Select a feature:</div>
+                    <div class="feature-list" *ngFor="let feature of features">
+                        <span>{{feature.name}}</span>
+                        <span>
+      <button (click)="onFeatureSelect(feature)">+</button>
+    </span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+
+                </div>
+            </div>
+
         </div>
-
-        <div *ngIf="features.length !== 0" class="feature-list-title">Select a feature:</div>
-        <div class="feature-list" *ngFor="let feature of features">
-            <span>{{feature.name}}</span>
-            <span>
-              <button (click)="onFeatureSelect(feature)">+</button>
-            </span>
-        </div>
-    </div>
-
-    <div *ngIf="message.length > 0" class="messages">
-        <span>{{message}}</span>
-        <span><button (click)="clearMessage()">x</button></span>
-    </div>
-
-    <div class="controls">
-        <button (click)="goToAnimalDetails()">Cancel</button>
-        <button (click)="saveAnimal()">Save</button>
     </div>
 </div>

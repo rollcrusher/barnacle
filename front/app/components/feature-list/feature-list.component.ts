@@ -6,7 +6,7 @@ import { FeaturesService } from '../../services/features.service';
 @Component({
   selector: 'app-feature-list',
   templateUrl: './feature-list.component.html',
-  styleUrls: ['./feature-list.component.css']
+  styleUrls: ['./feature-list.component.scss']
 })
 export class FeatureListComponent implements OnInit {
 

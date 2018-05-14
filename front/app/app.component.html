@@ -1,6 +1,18 @@
-<h1>{{title}}</h1>
-<nav>
-    <a routerLink="/animals/list">Animals</a>
-    <a routerLink="/features/list">Features</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="container" id="main">
+    <div class="row">
+        <div class="col space"></div>
+        <div class="col page-stuff">
+            <div class="row">
+                <div class="col">
+                    <page-header></page-header>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+        <div class="col space"></div>
+    </div>
+</div>

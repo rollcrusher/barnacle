@@ -1,18 +1,21 @@
-<div class="animal-details">
+<div class="card border-primary mb-3 animal-details">
     <div *ngIf="animal">
-        <div class="title">
-            <h2>{{ animal.name | uppercase }}</h2>
+        <div class="card-header animal-details-header">
+            <span class="flex-item">{{ animal.name | uppercase }}</span>
+            <span class="flex-item" style="width: 100%"></span>
+            <button class="btn btn-primary btn-sm" type="button" title="Delete animal"
+                    (click)="deleteAnimal(animal)">Delete
+            </button>
+            <button class="btn btn-primary btn-sm" type="button" title="Edit animal"
+                    (click)="goToEditAnimal(animal)">Edit
+            </button>
         </div>
 
-        <div class="controls">
-            <button (click)="toEditAnimal(animal)">Edit</button>
-        </div>
+        <div class="card-body">
+            <div class="label">
+                <label>Has features:</label>
+            </div>
 
-        <div class="label">
-            <label>Has features:</label>
-        </div>
-
-        <div class="container">
             <ul class="list">
                 <li *ngFor="let feature of animal.features">
                     {{feature.name}}

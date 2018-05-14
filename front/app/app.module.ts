@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 
 import { AnimalsService } from './services/animals.service';
 import { FeaturesService } from './services/features.service';
@@ -31,6 +32,7 @@ import { FeatureListComponent } from './components/feature-list/feature-list.com
 
     declarations: [
         AppComponent,
+        PageHeaderComponent,
 
         AnimalListComponent,
         AnimalDetailsComponent,

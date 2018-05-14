@@ -1,15 +1,46 @@
-<div class="animal-list">
-    <span class="block-title">Animals</span>
+<div class="card border-primary mb-3 animal-list">
+    <div class="card-header animal-list-header">
+        <label class="col-form-label col-form-label-sm flex-item"
+               for="animalSearch">Search:&nbsp;</label>
 
-    <a routerLink="/animals/add">[+]</a>
+        <input class="form-control form-control-sm flex-item"
+               type="text"
+               id="animalSearch">
 
-    <ul class="animals">
-        <li *ngFor="let animal of animals">
-            <a routerLink="/animals/{{animal.id}}">
-                {{animal.name}}
-            </a>
+        <span style="width: 100%"></span>
 
-            <button title="Delete animal" (click)="deleteAnimal(animal)">x</button>
-        </li>
-    </ul>
+        <button
+                type="button"
+                class="btn btn-primary btn-sm flex-item create-animal-button"
+                title="Create animal"
+                (click)="goToAnimalCreate()">
+            +
+        </button>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 90%" scope="col">Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let animal of animals">
+                <th scope="row">{{animal.name}}</th>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="button" title="Delete animal"
+                            (click)="deleteAnimal(animal)">X
+                    </button>
+                </td>
+                <td class="cell-animal-details">
+                    <button class="btn btn-primary btn-sm" type="button" title="Animal details"
+                            (click)="goToAnimalDetails(animal)">...
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

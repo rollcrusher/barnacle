@@ -13,7 +13,7 @@ import {ObjectId} from 'mongodb';
 @Component({
     selector: 'app-animal-create',
     templateUrl: './animal-create.html',
-    styleUrls: ['./animal-create.css']
+    styleUrls: ['./animal-create.scss']
 })
 
 export class AnimalCreateComponent implements OnInit {

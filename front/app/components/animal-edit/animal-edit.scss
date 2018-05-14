@@ -1,0 +1,29 @@
+.animal-edit {
+
+  .animal-edit-header {
+    justify-content: space-between;
+    display: flex;
+
+    button {
+      margin-left: 10px;
+    }
+
+    .animal-edit-block-title {
+      width: 120px;
+    }
+
+  }
+
+  div.card-body > div.container > div.row {
+    padding-bottom: 10px;
+
+    div:nth-child(1) {
+      padding-left: 0px;
+    }
+
+    div:nth-child(2) {
+      width: 300px;
+    }
+  }
+}
+
