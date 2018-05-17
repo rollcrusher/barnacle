@@ -11,55 +11,78 @@
     </div>
 
     <div class="card-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">Name:</div>
-                <div class="col-sm-2"><input [(ngModel)]="animal.name" placeholder="name"/></div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">Feature:</div>
-                <div style="width: 300px" class="col-sm-2">
-                    <span><input #featureName
-                           (keyup)="onFeatureNameInputChange(featureName.value)"
-                           (keyup.enter)="onFeatureSelect(featureName.value)"></span>
+        <span>Name:</span>
+        <span>
+            <input [(ngModel)]="animal.name" placeholder="name" class="form-control-sm"/>
+        </span>
+    </div>
+</div>
 
-                    <span *ngIf="features.length == 0 && featureName.value.trim().length > 0" class="name">
-                        <button (click)="createFeature(featureName.value)">+</button>
-                    </span>
-                </div>
-            </div>
+<!-- Add features -->
+<div class="card border-primary mb-3 animal-edit">
+    <div class="card-header animal-edit-header">
+        <div class="animal-edit-block-title">Add feature:</div>
+        <input #featureName
+               (keyup)="onFeatureNameInputChange(featureName.value)"
+               (keyup.enter)="onFeatureSelect(featureName.value)"
+               class="flex-item form-control-sm">
+        <span style="width: 100%"></span>
+        <button *ngIf="features.length == 0 && featureName.value.trim().length > 0"
+                class="btn btn-primary btn-sm flex-item create-animal-button"
+                (click)="createFeature(featureName.value)">Create
+        </button>
+    </div>
 
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 90%" scope="col">
+                    Feature name
+                </th>
+                <th scope="col">Add</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let feature of features">
+                <th scope="row">{{feature.name}}</th>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="button" title="Delete animal"
+                            (click)="onFeatureSelect(feature)">+
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-            <div class="row">
-                <div class="col-sm-2">
-                    <div *ngIf="selectedFeatures.length !== 0" class="feature-list-title">Selected features:</div>
-                    <div class="feature-list" *ngFor="let selectedFeature of selectedFeatures">
-                        <span>{{selectedFeature.name}}</span>
-                        <span>
-                          <button (click)="onFeatureDelete(selectedFeature)">x</button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-sm-2">
+<!-- Defined features -->
+<div class="card border-primary mb-3 animal-edit">
+    <div class="card-header animal-edit-header">
+        <div class="animal-edit-block-title">Defined features</div>
+    </div>
 
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-2">
-                    <div *ngIf="features.length !== 0" class="feature-list-title">Select a feature:</div>
-                    <div class="feature-list" *ngFor="let feature of features">
-                        <span>{{feature.name}}</span>
-                        <span>
-      <button (click)="onFeatureSelect(feature)">+</button>
-    </span>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-
-                </div>
-            </div>
-
-        </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="width: 90%" scope="col">
+                    Feature name
+                </th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let selectedFeature of selectedFeatures">
+                <th scope="row">{{selectedFeature.name}}</th>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="button" title="Delete animal"
+                            (click)="onFeatureDelete(selectedFeature)">X
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

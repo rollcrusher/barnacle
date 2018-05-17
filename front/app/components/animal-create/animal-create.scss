@@ -1,0 +1,28 @@
+.animal-create {
+
+  .animal-create-header {
+    justify-content: space-between;
+    display: flex;
+
+    button {
+      margin-left: 10px;
+    }
+
+    .animal-create-block-title {
+      white-space: nowrap;
+      margin-right:10px;
+    }
+  }
+
+  div.card-body > div.container > div.row {
+    padding-bottom: 10px;
+
+    div:nth-child(1) {
+      padding-left: 0;
+    }
+
+    div:nth-child(2) {
+      width: 300px;
+    }
+  }
+}
