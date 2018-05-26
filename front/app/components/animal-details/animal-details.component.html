@@ -1,7 +1,7 @@
 <div class="card border-primary mb-3 animal-details">
     <div *ngIf="animal">
         <div class="card-header animal-details-header">
-            <span class="flex-item">{{ animal.name | uppercase }}</span>
+            <span class="flex-item animal-details-title">{{ animal.name | uppercase }}</span>
             <span class="flex-item" style="width: 100%"></span>
             <button class="btn btn-primary btn-sm" type="button" title="Delete animal"
                     (click)="deleteAnimal(animal)">Delete
@@ -17,7 +17,7 @@
             </div>
 
             <ul class="list">
-                <li *ngFor="let feature of animal.features">
+                <li *ngFor="let feature of animal.features" class="animal-feature">
                     {{feature.name}}
                 </li>
             </ul>

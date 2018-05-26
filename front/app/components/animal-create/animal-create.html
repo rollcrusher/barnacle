@@ -1,11 +1,11 @@
-<div class="card border-primary mb-3 animal-create">
+<div class="card border-primary mb-3 animal-create-container">
     <div class="card-header animal-create-header">
         <div class="animal-create-block-title">Create animal</div>
         <span style="width: 100%"></span>
-        <button class="btn btn-primary btn-sm flex-item create-animal-button" title="Go to animal details"
-                (click)="goToAnimalDetails()">Cancel
+        <button class="btn btn-primary btn-sm flex-item button-animal-cencel" title="Go to animal details"
+                (click)="goToAnimalList()">Cancel
         </button>
-        <button class="btn btn-primary btn-sm flex-item create-animal-button" title="Save modifications"
+        <button class="btn btn-primary btn-sm flex-item button-animal-save" title="Save modifications"
                 (click)="createAnimal(animalName.value)">Save
         </button>
     </div>
@@ -13,19 +13,19 @@
     <div class="card-body">
         <span>Name:</span>
         <span>
-            <input #animalName class="form-control-sm"/>
+            <input #animalName class="form-control-sm input-animal-name"/>
         </span>
     </div>
 </div>
 
 <!-- Add features -->
-<div class="card border-primary mb-3 animal-create">
+<div class="card border-primary mb-3 animal-create-container">
     <div class="card-header animal-create-header">
         <div class="animal-create-block-title">Add feature:</div>
         <input #featureName
                (keyup)="onFeatureNameInputChange(featureName.value)"
                (keyup.enter)="onFeatureSelect(featureName.value)"
-               class="flex-item form-control-sm">
+               class="flex-item form-control-sm input-feature-name">
         <span style="width: 100%"></span>
         <button *ngIf="features.length == 0 && featureName.value.trim().length > 0"
                 class="btn btn-primary btn-sm flex-item create-animal-button"
@@ -45,9 +45,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let feature of features">
-                <th scope="row">{{feature.name}}</th>
+                <td class="cell-add-feature" scope="row">{{feature.name}}</td>
                 <td>
-                    <button class="btn btn-primary btn-sm" type="button" title="Delete animal"
+                    <button class="btn btn-primary btn-sm" type="button" title="Add feature"
                             (click)="onFeatureSelect(feature)">+
                     </button>
                 </td>
@@ -75,9 +75,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let selectedFeature of selectedFeatures">
-                <th scope="row">{{selectedFeature.name}}</th>
+                <td class="cell-defined-feature" scope="row">{{selectedFeature.name}}</td>
                 <td>
-                    <button class="btn btn-primary btn-sm" type="button" title="Delete animal"
+                    <button class="btn btn-primary btn-sm" type="button" title="Delete feature"
                             (click)="onFeatureDelete(selectedFeature)">X
                     </button>
                 </td>
