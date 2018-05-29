@@ -31,7 +31,7 @@
     "express": "^4.16.3",
     "http-server": "^0.11.1",
     "jquery": "^3.3.1",
-    "log4js": "^2.5.3",
+    "log4js": "2.7.0",
     "method-override": "^2.3.10",
     "mongoose": "^5.0.13",
     "morgan": "^1.9.0",
@@ -93,7 +93,7 @@
     "back:start": "node server.js",
     "front:start": "node_modules/.bin/ng serve",
     "build": "tsc",
-    "test:e2e": "node_modules/.bin/nightwatch -c ./nightwatch.conf.js --env chrome --tag debug",
+    "test:e2e": "node_modules/.bin/nightwatch -c ./nightwatch.conf.js --env chrome",
     "test:unit": "rm -rf reports & node_modules/.bin/ng test",
     "test:coverage": "rm -rf reports & node_modules/.bin/ng test --code-coverage",
     "test:api:allure": "node_modules/.bin/mocha --reporter mocha-allure-reporter test/api/spec",
@@ -104,6 +104,7 @@
     "code:eslint": "eslint back/**/*.js --quiet",
     "code:analyse": "plato -r -d reports/test-analyse -e .eslintrc.json -t \"barnacle\" -x .json back/**/*.js test/**/*.js",
     "webdriver:update": "webdriver-manager update",
-    "webdriver:start": "webdriver-manager start"
+    "webdriver:start": "webdriver-manager start",
+    "db:start": "mongod --dbpath /usr/local/var/mongodb"
   }
 }

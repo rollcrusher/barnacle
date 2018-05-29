@@ -16,6 +16,7 @@ When(/^I get Create Animal page$/, () => {
 When(/^I put "([^"]*)" value to Name field$/, (animalName) => {
     return client
         .waitForElementVisible('.input-animal-name', TIMEOUT_DEFAULT)
+        .clearValue('.input-animal-name')
         .setValue('.input-animal-name', animalName);
 });
 

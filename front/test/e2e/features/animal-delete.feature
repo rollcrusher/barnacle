@@ -1,4 +1,4 @@
-@animal @debug
+@animal
 
 Feature: Animal delete
   In order to manage system data
@@ -10,5 +10,5 @@ Feature: Animal delete
     And I click at Animals menu item
 
   Scenario: Animal entity can be deleted
-    When I click at Animal Delete button for "www" animal
-    Then I should get Animal List w/o "www" animal
+    When I click at Animal Delete button for "Cat" animal
+    Then I should get Animal List w/o "Cat" animal

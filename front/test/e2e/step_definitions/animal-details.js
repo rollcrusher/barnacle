@@ -1,5 +1,5 @@
 const {client} = require('nightwatch-cucumber');
-const {Then, When} = require('cucumber');
+const {Then, When, And} = require('cucumber');
 
 const TIMEOUT_DEFAULT = 2000;
 
@@ -9,6 +9,10 @@ When(/^I click at Animal Details button for "([^"]*)" animal$/, (animalName) => 
     client.click('//td[.="' + animalName + '"]/../td/button[contains(@class, "btn-animal-details")]');
     client.useCss();
     return client;
+});
+
+When(/^I get Animal Details page$/, () => {
+    return client.waitForElementVisible('.animal-details', TIMEOUT_DEFAULT);
 });
 
 Then(/^I should get Animal Details page$/, () => {

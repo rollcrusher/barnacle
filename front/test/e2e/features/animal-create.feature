@@ -27,7 +27,7 @@ Feature: Animal create
     And I click at Save button
     Then I should get created "Fish" animal entity
 
-  Scenario: Animal entity can be created w/ features
+  Scenario: Defined features can be changed
     When I click at New Animal button
     And I get Create Animal page
     And I search feature with "ta" value
