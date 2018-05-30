@@ -4,27 +4,30 @@
 
 Start mongodb 
 ```
-mongod --dbpath /usr/local/var/mongodb
+npm run db:start
 ```
 
 Start back server
 ```
 npm run back:start
-
 ```
 
 Start front server
 ```
 npm run front:start
 ```
+
 ### Front
 ```
-localhost:4200
+http://localhost:4200/
 ```
 
 ### Back
-##### Animals
+```
+http://localhost:3000/
+```
 
+##### Animals
  * api/animals/search/all
  * api/animals/search/id/\<animalId>
  * api/animals/create
@@ -32,7 +35,6 @@ localhost:4200
  * api/animals/delete/\<animalId>
  
 ##### Features
-
  * api/features/search/all
  * api/features/search/id/\<featureId>
  * api/features/search/name/\<featureName>
@@ -42,26 +44,34 @@ localhost:4200
 ### Tests
 
 ##### API tests
-
 The following libraries were used:
+* angular 5
+* mongoose
+* bootstrap
 * mochajs
 * chai
 * lodash-match-pattern
 * mocha-allure-reporter
+* nightwatch-cucumber
 
-Commands for API tests launching:
-
+##### API tests
  ```
  npm run test:api:list
  npm run test:api:allure
  ```
  
-##### Front unit test
-``` 
-test:unit
+##### e2e tests
+```
+npm run test:e2e
 ```
 
-##### Front test coverage
+
+##### Front unit tests
+``` 
+npm run test:unit
 ```
-test:coverage
+
+##### Front tests coverage
+```
+npm run test:coverage
 ```

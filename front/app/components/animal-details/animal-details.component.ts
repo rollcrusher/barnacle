@@ -43,6 +43,8 @@ export class AnimalDetailsComponent implements OnInit {
     }
 
     deleteAnimal(animal: Animal): void {
-        this.animalsService.deleteAnimal(animal).subscribe();
+        this.animalsService.deleteAnimal(animal).subscribe((data) => {
+            this.router.navigate(['animals/list']);
+        });
     }
 }

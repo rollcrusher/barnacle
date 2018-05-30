@@ -22,18 +22,12 @@
             <thead>
             <tr>
                 <th style="width: 90%" scope="col">Name</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">View</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let animal of animals">
                 <td scope="row" class="cell-animal-name">{{animal.name}}</td>
-                <td>
-                    <button class="btn btn-primary btn-sm btn-animal-delete" type="button" title="Delete animal"
-                            (click)="deleteAnimal(animal)">X
-                    </button>
-                </td>
                 <td class="cell-animal-details">
                     <button class="btn btn-primary btn-sm btn-animal-details" type="button" title="Animal details"
                             (click)="goToAnimalDetails(animal)">...

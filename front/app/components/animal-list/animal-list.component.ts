@@ -25,11 +25,6 @@ export class AnimalListComponent implements OnInit {
             .subscribe(animals => this.animals = animals);
     }
 
-    deleteAnimal(animal: Animal): void {
-        this.animals = this.animals.filter(h => h !== animal);
-        this.animalsService.deleteAnimal(animal).subscribe();
-    }
-
     goToAnimalCreate(): void {
         this.router.navigate(['animals/create']);
     }

@@ -10,5 +10,7 @@ Feature: Animal delete
     And I click at Animals menu item
 
   Scenario: Animal entity can be deleted
-    When I click at Animal Delete button for "Cat" animal
+    When I click at Animal Details button for "Cat" animal
+    And I get Animal Details page
+    When I click at Animal Delete button
     Then I should get Animal List w/o "Cat" animal

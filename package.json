@@ -105,6 +105,8 @@
     "code:analyse": "plato -r -d reports/test-analyse -e .eslintrc.json -t \"barnacle\" -x .json back/**/*.js test/**/*.js",
     "webdriver:update": "webdriver-manager update",
     "webdriver:start": "webdriver-manager start",
-    "db:start": "mongod --dbpath /usr/local/var/mongodb"
+    "db:start": "mongod --dbpath /usr/local/var/mongodb",
+    "db:restore": "mongorestore --gzip --archive=db/barnacle.test.gz --db barnacle",
+    "db:dump": "mongodump --archive=barnacle.test.gz --gzip --db barnacle"
   }
 }
