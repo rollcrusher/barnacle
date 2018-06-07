@@ -1,0 +1,19 @@
+<div class="card border-primary mb-3 interrogation">
+    <div class="card-header interrogation-header">
+        <span class="flex-item interrogation-title">Interrogation</span>
+        <span class="flex-item" style="width: 100%"></span>
+        <button class="btn btn-primary btn-sm button-view-interrogation-no" type="button" title="No"
+                (click)="noAnswer()">No
+        </button>
+
+        <button class="btn btn-primary btn-sm button-view-interrogation-yes" type="button" title="Yes"
+                (click)="yesAnswer()">Yes
+        </button>
+    </div>
+
+    <div class="card-body">
+        <div *ngIf="prevalentFeature" class="feature-known">
+            {{prevalentFeature.name}}
+        </div>
+    </div>
+</div>

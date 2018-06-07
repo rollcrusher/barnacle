@@ -35,6 +35,14 @@ export class FeaturesService {
             );
     }
 
+    getFeatureThatMostPrevalent(name: string): Observable<Feature[]> {
+        return this.http.get<Feature[]>(`${this.featuresUrl}/search/prevalent`)
+            .pipe(
+                tap(features => this.log(`fetched feature excluding:`)), //todo print ids
+                catchError(this.handleError(`getFeatureThatMostPrevalent ${name}`, []))
+            );
+    }
+
     getFeatureById(id: string): Observable<Feature> {
         return this.http.get<Feature>(`${this.featuresUrl}/search/id/${id}`)
             .pipe(

@@ -2,6 +2,10 @@ const FeatureDAO = require('../dao/featureDAO');
 
 module.exports = (app) => {
 
+    app.put('/api/features/create', (req, res) => {
+        FeatureDAO.createFeature(req, res);
+    });
+
     app.get('/api/features/search/all', (req, res) => {
         FeatureDAO.getAllFeatures(res);
     });
@@ -14,7 +18,7 @@ module.exports = (app) => {
         FeatureDAO.getFeatureByName(req, res);
     });
 
-    app.put('/api/features/create', (req, res) => {
-        FeatureDAO.createFeature(req, res);
+    app.get('/api/features/search/prevalent', (req, res) => {
+        FeatureDAO.getFeatureThatMostPrevalent(req, res);
     });
 };

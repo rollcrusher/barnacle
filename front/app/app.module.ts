@@ -21,6 +21,9 @@ import { AnimalEditComponent } from './components/animal-edit/animal-edit.compon
 import { FeatureDetailsComponent } from './components/feature-details/feature-details.component';
 import { FeatureListComponent } from './components/feature-list/feature-list.component';
 
+import { AnalysisComponent } from './components/analysis/analysis.component';
+import { PersistenceService } from './services/persistence.service';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -40,12 +43,15 @@ import { FeatureListComponent } from './components/feature-list/feature-list.com
         AnimalEditComponent,
 
         FeatureListComponent,
-        FeatureDetailsComponent
+        FeatureDetailsComponent,
+
+        AnalysisComponent
     ],
 
     providers: [
         AnimalsService,
-        FeaturesService
+        FeaturesService,
+        PersistenceService
     ],
 
     bootstrap: [AppComponent]

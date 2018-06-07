@@ -49,7 +49,7 @@ export class AnimalsService {
             );
     }
 
-    deleteAnimal (animal: Animal | number): Observable<Animal> {
+    deleteAnimal(animal: Animal | number): Observable<Animal> {
         const id = typeof animal === 'number' ? animal : animal.id;
         const url = `${this.animalsUrl}/delete/${id}`;
 

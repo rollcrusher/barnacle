@@ -14,6 +14,10 @@ module.exports = (app) => {
         AnimalDAO.getAnimalWithPopulatedFeaturesById(req, res);
     });
 
+    app.get('/api/animals/search/by/features', (req, res) => {
+        AnimalDAO.getAnimalsByFeatures(req, res);
+    });
+
     app.put('/api/animals/create', (req, res) => {
         AnimalDAO.createAnimal(req, res);
     });

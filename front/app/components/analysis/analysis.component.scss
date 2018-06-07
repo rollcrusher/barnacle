@@ -1,0 +1,16 @@
+.interrogation {
+
+  .interrogation-header {
+    justify-content: space-between;
+    display: flex;
+
+    button {
+      margin-left: 10px;
+    }
+  }
+
+  .feature-known {
+    text-align: center;
+    width: 100%;
+  }
+}

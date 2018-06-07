@@ -1,8 +1,10 @@
+const mongoose = require('mongoose');
 const log4js = require('log4js');
 const logger = log4js.getLogger();
 logger.level = 'debug';
 
 const Animal = require('../models/AnimalModel');
+const requestParser = require('../transport/requestParser');
 
 module.exports = {
 
@@ -48,10 +50,37 @@ module.exports = {
         });
     },
 
-    getAnimalsByFeature: (req, res) => {
-        let query = Animal.find(
-            {features: {$eq: req.params.featureId}}
-        ).select({name: 1});
+    getAnimalsByFeatures: (req, res) => {
+        let includeFeatureIdObjects;
+        let excludeFeatureIdObjects;
+
+        try {
+            includeFeatureIdObjects = requestParser.getData(req, 'includeFeatures');
+            excludeFeatureIdObjects = requestParser.getData(req, 'excludeFeatures');
+        } catch (err) {
+            res.json([err]);
+            return;
+        }
+
+        if ((includeFeatureIdObjects.length === 0) && (excludeFeatureIdObjects.length === 0)) {
+            const errMsg = 'getAnimalsByFeatures() has been called w/o parameters';
+            logger.error(errMsg);
+            res.json([{error: errMsg}]);
+            return;
+        }
+
+        let query = Animal
+            .find()
+            .select('name');
+
+        if (includeFeatureIdObjects.length > 0) {
+            query = query.where('features').in(includeFeatureIdObjects);
+        }
+
+        if (excludeFeatureIdObjects.length > 0) {
+            query = query.where('features').nin(excludeFeatureIdObjects);
+        }
+
 
         Animal.find(query).exec((err, animals) => {
             if (err) {
