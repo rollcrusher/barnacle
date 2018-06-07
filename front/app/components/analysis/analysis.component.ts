@@ -36,10 +36,12 @@ export class AnalysisComponent implements OnInit {
     }
 
     yesAnswer(): void {
-
+        const interrogationData = { appropriateFeatures: [], unsuitableFeatures: [] };
+        this.persistenceService.set('INTERROGATION_DATA', interrogationData);
     }
 
     noAnswer(): void {
-
+        const interrogationData = this.persistenceService.get('INTERROGATION_DATA');
+        console.log(interrogationData);
     }
 }
