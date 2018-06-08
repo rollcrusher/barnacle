@@ -1,5 +1,5 @@
 export class Feature {
-    id: number;
+    id: string;
     name: string;
     animals: string[];
 }

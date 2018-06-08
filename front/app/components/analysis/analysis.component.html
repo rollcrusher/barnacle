@@ -1,19 +1,36 @@
 <div class="card border-primary mb-3 interrogation">
     <div class="card-header interrogation-header">
         <span class="flex-item interrogation-title">Interrogation</span>
+        <button class="btn btn-primary btn-sm button-view-interrogation-new" type="button" title="New"
+                (click)="onNew()">New
+        </button>
         <span class="flex-item" style="width: 100%"></span>
-        <button class="btn btn-primary btn-sm button-view-interrogation-no" type="button" title="No"
-                (click)="noAnswer()">No
+        <button *ngIf="prevalentFeature" class="btn btn-primary btn-sm button-view-interrogation-no" type="button"
+                title="No"
+                (click)="onNo()">No
         </button>
 
-        <button class="btn btn-primary btn-sm button-view-interrogation-yes" type="button" title="Yes"
-                (click)="yesAnswer()">Yes
+        <button *ngIf="prevalentFeature" class="btn btn-primary btn-sm button-view-interrogation-yes" type="button"
+                title="Yes"
+                (click)="onYes()">Yes
+        </button>
+
+        <button *ngIf="conclusion === 'NO_VARIANTS'" class="btn btn-primary btn-sm button-animal-name-save"
+                type="button" title="Save"
+                (click)="onSave(animalName.value)">Save
         </button>
     </div>
 
     <div class="card-body">
         <div *ngIf="prevalentFeature" class="feature-known">
             {{prevalentFeature.name}}
+        </div>
+
+        <div [hidden]="conclusion !== 'NO_VARIANTS'" class="conclusion">
+            <div>I don't know this animal. Tell me, please, who is it?</div>
+            <div>
+                <input #animalName placeholder="Animal name" class="form-control-sm flex-item input-new-animal-name"/>
+            </div>
         </div>
     </div>
 </div>

@@ -117,6 +117,10 @@ module.exports = {
                     logger.error(err);
                     res.json({error: err.message});
                 } else {
+                    for (let f of features) {
+                        f.id = f._id;
+                        delete f._id;
+                    }
                     logger.debug('prevalent feature : ' + JSON.stringify(features));
                     res.json(features);
                 }

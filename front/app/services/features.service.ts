@@ -35,11 +35,13 @@ export class FeaturesService {
             );
     }
 
-    getFeatureThatMostPrevalent(name: string): Observable<Feature[]> {
-        return this.http.get<Feature[]>(`${this.featuresUrl}/search/prevalent`)
+    getFeatureThatMostPrevalent(unsuitableFeatures: string[]): Observable<Feature[]> {
+        const excludeFeatureIds = JSON.stringify(unsuitableFeatures);
+        console.log(excludeFeatureIds);
+        return this.http.get<Feature[]>(`${this.featuresUrl}/search/prevalent?excludeFeatures=${excludeFeatureIds}`)
             .pipe(
-                tap(features => this.log(`fetched feature excluding:`)), //todo print ids
-                catchError(this.handleError(`getFeatureThatMostPrevalent ${name}`, []))
+                tap(features => this.log(`fetched feature: ${JSON.stringify(features)}`)),
+                catchError(this.handleError(`getFeatureThatMostPrevalent ${excludeFeatureIds}`, []))
             );
     }
 

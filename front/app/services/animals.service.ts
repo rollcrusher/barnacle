@@ -37,10 +37,12 @@ export class AnimalsService {
 
     createAnimal(animal: Animal): Observable<Animal> {
         const featureIds = [];
-        animal.features.forEach(feature => {
-            featureIds.push(feature.id);
-        });
-        animal.features = featureIds;
+        if (animal.features !== null) {
+            animal.features.forEach(feature => {
+                featureIds.push(feature.id);
+            });
+            animal.features = featureIds;
+        }
 
         return this.http.put<Animal>(`${this.animalsUrl}/create`, JSON.stringify(animal), httpOptions)
             .pipe(

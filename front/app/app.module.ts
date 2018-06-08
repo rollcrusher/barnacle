@@ -12,6 +12,8 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 
 import { AnimalsService } from './services/animals.service';
 import { FeaturesService } from './services/features.service';
+import { PersistenceService } from './services/persistence.service';
+import { AnalysisService } from './services/analysis.service';
 
 import { AnimalListComponent } from './components/animal-list/animal-list.component';
 import { AnimalDetailsComponent } from './components/animal-details/animal-details.component';
@@ -22,7 +24,6 @@ import { FeatureDetailsComponent } from './components/feature-details/feature-de
 import { FeatureListComponent } from './components/feature-list/feature-list.component';
 
 import { AnalysisComponent } from './components/analysis/analysis.component';
-import { PersistenceService } from './services/persistence.service';
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { PersistenceService } from './services/persistence.service';
     providers: [
         AnimalsService,
         FeaturesService,
-        PersistenceService
+        PersistenceService,
+        AnalysisService
     ],
 
     bootstrap: [AppComponent]
