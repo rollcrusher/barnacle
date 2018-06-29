@@ -6,7 +6,7 @@
                 (click)="goToAnimalDetails()">Cancel
         </button>
         <button class="btn btn-primary btn-sm flex-item button-animal-save" title="Save modifications"
-                (click)="saveAnimal()">Save
+                (click)="onSaveAnimal()">Save
         </button>
     </div>
 
@@ -25,11 +25,12 @@
         <input #featureName
                (keyup)="onFeatureNameInputChange(featureName.value)"
                (keyup.enter)="onFeatureSelect(featureName.value)"
-               class="flex-item form-control-sm input-feature-name">
+               class="flex-item form-control-sm input-feature-name"
+               [(ngModel)]="inputFeatureName">
         <span style="width: 100%"></span>
         <button *ngIf="features.length == 0 && featureName.value.trim().length > 0"
                 class="btn btn-primary btn-sm flex-item create-animal-button"
-                (click)="createFeature(featureName.value)">Create
+                (click)="onCreateFeature(featureName.value)">Create
         </button>
     </div>
 
@@ -81,6 +82,30 @@
                             (click)="onFeatureDelete(selectedFeature)">X
                     </button>
                 </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Excluded features -->
+<div class="card border-primary mb-3 animal-edit">
+    <div class="card-header animal-edit-header">
+        <div class="animal-edit-block-title">Excluded features</div>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 90%" scope="col">
+                        Feature name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let excludedFeature of excludedFeatures">
+                <td scope="row" class="cell-defined-feature">{{excludedFeature.name}}</td>
             </tr>
             </tbody>
         </table>

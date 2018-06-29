@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Animal } from '../models/animal.model';
+import { Feature } from '../models/feature.model';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,7 +23,7 @@ export class AnimalsService {
     getAnimals(): Observable<Animal[]> {
         return this.http.get<Animal[]>(this.animalsUrl + '/search/all')
             .pipe(
-                tap(animals => this.log(`fetched animals`)),
+                tap(animals => AnimalsService.log(`fetched animals`)),
                 catchError(this.handleError('getAnimals', []))
             );
     }
@@ -30,8 +31,23 @@ export class AnimalsService {
     getAnimalById(id: string): Observable<Animal> {
         return this.http.get<Animal>(`${this.animalsUrl}/search/propagated/id/${id}`)
             .pipe(
-                tap(animals => this.log(`fetched animal by id ${id}`)),
+                tap(animal => AnimalsService.log(`fetched animal by id ${id}`)),
                 catchError(this.handleError<Animal>(`getAnimalById ${id}`))
+            );
+    }
+
+    getAnimalsByFeatures(includeFeatures: Feature[], excludeFeatures: Feature[]): Observable<Animal[]> {
+
+        const includeFeatureIds = AnimalsService.extractIdsFromObjects(includeFeatures);
+        const excludeFeatureIds = AnimalsService.extractIdsFromObjects(excludeFeatures);
+
+        return this.http.get<Animal[]>(
+            `${this.animalsUrl}/search/by/features`
+            + `?includeFeatures=${JSON.stringify(includeFeatureIds)}`
+            + `&excludeFeatures=${JSON.stringify(excludeFeatureIds)}`)
+            .pipe(
+                tap(animals => AnimalsService.log(`fetched animals`)),
+                catchError(this.handleError<Animal[]>('getAnimalsByFeatures'))
             );
     }
 
@@ -46,7 +62,7 @@ export class AnimalsService {
 
         return this.http.put<Animal>(`${this.animalsUrl}/create`, JSON.stringify(animal), httpOptions)
             .pipe(
-                tap(animals => this.log(`added animal [id: ${animal.id}]`)),
+                tap(animals => AnimalsService.log(`added animal [id: ${animal.id}]`)),
                 catchError(this.handleError<Animal>(`addAnimal`))
             );
     }
@@ -56,7 +72,7 @@ export class AnimalsService {
         const url = `${this.animalsUrl}/delete/${id}`;
 
         return this.http.delete<Animal>(url, httpOptions).pipe(
-            tap(_ => this.log(`deleted animal id=${id}`)),
+            tap(_ => AnimalsService.log(`deleted animal id=${id}`)),
             catchError(this.handleError<Animal>('deleteAnimal'))
         );
     }
@@ -64,7 +80,7 @@ export class AnimalsService {
     updateAnimal(animal: Animal): Observable<any> {
         return this.http.post<Animal>(`${this.animalsUrl}/edit`, JSON.stringify(animal), httpOptions)
             .pipe(
-                tap(_ => this.log(`updated animal [id: ${JSON.stringify(animal)}]`)),
+                tap(_ => AnimalsService.log(`updated animal [id: ${JSON.stringify(animal)}]`)),
                 catchError(this.handleError<Animal>(`updateAnimal`))
             );
     }
@@ -72,12 +88,20 @@ export class AnimalsService {
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error);
-            this.log(`${operation} failed: ${error.message}`);
+            AnimalsService.log(`${operation} failed: ${error.message}`);
             return of(result as T);
         };
     }
 
-    private log(message: string) {
+    private static extractIdsFromObjects(objArr: any[]): string[] {
+        let idArr = [];
+        for (let object of objArr) {
+            idArr.push(object['id']);
+        }
+        return idArr;
+    }
+
+    private static log(message: string) {
         console.log('AnimalService: ' + message);
     }
 }

@@ -25,13 +25,43 @@ module.exports = {
             featureId = mongoose.Types.ObjectId(req.params.featureId);
         } catch (err) {
             res.json([]);
-            logger.debug('feature by id : ' + req.params.featureId);
+            logger.error('feature by id : ' + req.params.featureId);
             return;
         }
 
         const query = {'_id': featureId};
 
         Feature.findOne(query).populate('animals').exec((err, feature) => {
+            if (err) {
+                res.send({error: err.message});
+                logger.error(err);
+                return;
+            }
+
+            res.json(feature);
+            logger.debug('feature by id : ' + feature);
+        });
+    },
+
+    getFeaturesByIdArr: (req, res) => {
+        let featureId;
+        let featureIdArr = [];
+
+        const featureIdArrReq = requestParser.getData(req, 'ids');
+
+        featureIdArrReq.forEach(featureId => {
+            try {
+                featureId = mongoose.Types.ObjectId(featureId);
+                featureIdArr.push(featureId);
+            } catch (err) {
+                res.json([]);
+                logger.error('feature by id : ' + featureId);
+            }
+        });
+
+        const query = {'_id': {'$in' : featureIdArr}};
+
+        Feature.find(query).exec((err, feature) => {
             if (err) {
                 res.send({error: err.message});
                 logger.error(err);

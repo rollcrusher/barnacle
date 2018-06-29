@@ -6,31 +6,31 @@ import { InterrogationData } from '../models/interrogation-data.model';
 @Injectable()
 export class AnalysisService {
 
-    interrogationData: InterrogationData;
-
     constructor(private persistenceService: PersistenceService) {
     }
 
     getInterrogationData(): InterrogationData {
-        this.interrogationData = this.persistenceService.get('INTERROGATION_DATA');
-        if (this.interrogationData === null) {
-            this.interrogationData = new InterrogationData();
+        let interrogationData = this.persistenceService.get('INTERROGATION_DATA');
+        if (interrogationData === null) {
+            interrogationData = new InterrogationData();
         }
-        return this.interrogationData;
+        return interrogationData;
     }
 
     addAppropriateFeature(feature: Feature): void {
-        this.interrogationData = this.getInterrogationData();
+        let interrogationData = this.getInterrogationData();
+        interrogationData.appropriateFeatures.push(feature);
+        this.persistenceService.set('INTERROGATION_DATA', interrogationData);
     }
 
     addUnsuitableFeatures(feature: Feature): void {
-        this.interrogationData = this.getInterrogationData();
-        this.interrogationData.unsuitableFeatures.push(feature.id);
-        this.persistenceService.set('INTERROGATION_DATA', this.interrogationData);
+        let interrogationData = this.getInterrogationData();
+        interrogationData.unsuitableFeatures.push(feature);
+        this.persistenceService.set('INTERROGATION_DATA', interrogationData);
     }
 
     cleanInterrogationData(): void {
-        this.interrogationData = new InterrogationData();
-        this.persistenceService.set('INTERROGATION_DATA', this.interrogationData);
+        let interrogationData = new InterrogationData();
+        this.persistenceService.set('INTERROGATION_DATA', interrogationData);
     }
 }

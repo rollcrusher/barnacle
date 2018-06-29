@@ -1,8 +1,10 @@
+import { Feature } from './feature.model';
 export class InterrogationData {
-    appropriateFeatures: string[];
-    unsuitableFeatures: string[];
+    appropriateFeatures: Feature[];
+    unsuitableFeatures: Feature[];
 
     constructor () {
         this.unsuitableFeatures = [];
+        this.appropriateFeatures = [];
     }
 }

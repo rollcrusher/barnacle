@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { InterrogationData } from '../models/interrogation-data.model';
 
 @Injectable()
 export class PersistenceService {
@@ -13,7 +14,7 @@ export class PersistenceService {
         }
     }
 
-    get(key: string) {
+    get(key: string): InterrogationData {
         try {
             return JSON.parse(localStorage.getItem(key));
         } catch (e) {

@@ -22,7 +22,7 @@ export class FeaturesService {
     getFeatures(): Observable<Feature[]> {
         return this.http.get<Feature[]>(this.featuresUrl + '/search/all')
             .pipe(
-                tap(features => this.log(`fetched features`)),
+                tap(features => FeaturesService.log(`fetched features`)),
                 catchError(this.handleError('getFeatures', []))
             );
     }
@@ -30,25 +30,34 @@ export class FeaturesService {
     getFeaturesByName(name: string): Observable<Feature[]> {
         return this.http.get<Feature[]>(`${this.featuresUrl}/search/name/${name}`)
             .pipe(
-                tap(features => this.log(`fetched feature by name ${name}`)),
+                tap(features => FeaturesService.log(`fetched feature by name ${name}`)),
                 catchError(this.handleError(`getFeaturesByName ${name}`, []))
             );
     }
 
-    getFeatureThatMostPrevalent(unsuitableFeatures: string[]): Observable<Feature[]> {
-        const excludeFeatureIds = JSON.stringify(unsuitableFeatures);
-        console.log(excludeFeatureIds);
-        return this.http.get<Feature[]>(`${this.featuresUrl}/search/prevalent?excludeFeatures=${excludeFeatureIds}`)
+    getFeatureThatMostPrevalent(unsuitableFeatures: Feature[]): Observable<Feature[]> {
+        const featureIds = FeaturesService.extractIdsFromObjects(unsuitableFeatures);
+        const featureIdsStr = JSON.stringify(featureIds);
+        return this.http.get<Feature[]>(`${this.featuresUrl}/search/prevalent?excludeFeatures=${featureIdsStr}`)
             .pipe(
-                tap(features => this.log(`fetched feature: ${JSON.stringify(features)}`)),
-                catchError(this.handleError(`getFeatureThatMostPrevalent ${excludeFeatureIds}`, []))
+                tap(features => FeaturesService.log(`fetched feature: ${JSON.stringify(features)}`)),
+                catchError(this.handleError(`getFeatureThatMostPrevalent ${featureIdsStr}`, []))
+            );
+    }
+
+    getFeaturesByIds(featureIds: string[]): Observable<Feature[]> {
+        const featureIdsArr = JSON.stringify(featureIds);
+        return this.http.get<Feature[]>(`${this.featuresUrl}/search/array/id?ids=${featureIdsArr}`)
+            .pipe(
+                tap(features => FeaturesService.log(`fetched feature: ${JSON.stringify(features)}`)),
+                catchError(this.handleError(`getFeatureThatMostPrevalent ${featureIdsArr}`, []))
             );
     }
 
     getFeatureById(id: string): Observable<Feature> {
         return this.http.get<Feature>(`${this.featuresUrl}/search/id/${id}`)
             .pipe(
-                tap(features => this.log(`fetched feature by id ${id}`)),
+                tap(features => FeaturesService.log(`fetched feature by id ${id}`)),
                 catchError(this.handleError<Feature>(`getFeatureById ${id}`))
             );
     }
@@ -56,7 +65,7 @@ export class FeaturesService {
     createFeature(feature: Feature): Observable<Feature> {
         return this.http.put<Feature>(`${this.featuresUrl}/create`, feature, httpOptions)
             .pipe(
-                tap(features => this.log(`added feature [id: ${feature.id}]`)),
+                tap(features => FeaturesService.log(`added feature [id: ${feature.id}]`)),
                 catchError(this.handleError<Feature>(`addFeature`))
             );
     }
@@ -64,12 +73,20 @@ export class FeaturesService {
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error);
-            this.log(`${operation} failed: ${error.message}`);
+            FeaturesService.log(`${operation} failed: ${error.message}`);
             return of(result as T);
         };
     }
 
-    private log(message: string) {
+    private static extractIdsFromObjects(objArr: any[]): string[] {
+        let idArr = [];
+        for (let object of objArr) {
+            idArr.push(object['id']);
+        }
+        return idArr;
+    }
+
+    private static log(message: string) {
         console.log('FeatureService: ' + message);
     }
 }

@@ -17,8 +17,8 @@ export class AnalysisComponent implements OnInit {
     prevalentFeature: Feature;
     appropriateFeatures: Feature[];
     unsuitableFeatures: Feature[];
+    relatedAnimals: Animal[];
     conclusion: string;
-    animalName: string;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -30,7 +30,9 @@ export class AnalysisComponent implements OnInit {
     ngOnInit() {
     }
 
-    getPrevalentFeature(): void {
+    definePrevalentFeature(): void {
+        this.prevalentFeature = null;
+
         const interrogationData = this.analysisService.getInterrogationData();
 
         this.featuresService.getFeatureThatMostPrevalent(interrogationData.unsuitableFeatures)
@@ -43,29 +45,52 @@ export class AnalysisComponent implements OnInit {
             });
     }
 
+    defineRelatedAnimals(): void {
+        this.relatedAnimals = null;
+        const interrogationData = this.analysisService.getInterrogationData();
+
+        this.animalsService.getAnimalsByFeatures(interrogationData.appropriateFeatures, interrogationData.unsuitableFeatures)
+            .subscribe((result) => {
+                this.relatedAnimals = result;
+            });
+    }
+
+    defineStatFeatures(): void {
+        const interrogationData = this.analysisService.getInterrogationData();
+        this.appropriateFeatures = interrogationData.appropriateFeatures;
+        this.unsuitableFeatures = interrogationData.unsuitableFeatures;
+    }
+
     onYes(): void {
         this.analysisService.addAppropriateFeature(this.prevalentFeature);
+        this.definePrevalentFeature();
+        this.defineRelatedAnimals();
+        this.defineStatFeatures();
     }
 
     onNo(): void {
         this.analysisService.addUnsuitableFeatures(this.prevalentFeature);
-        this.prevalentFeature = null;
-        this.getPrevalentFeature();
+        this.definePrevalentFeature();
+        this.defineRelatedAnimals();
+        this.defineStatFeatures();
     }
 
     onNew(): void {
         this.resetComponentData();
         this.analysisService.cleanInterrogationData();
-        this.getPrevalentFeature();
+        this.definePrevalentFeature();
     }
 
     resetComponentData(): void {
         this.conclusion = null;
-        this.unsuitableFeatures = null;
+        this.relatedAnimals = null;
         this.appropriateFeatures = null;
+        this.unsuitableFeatures = null;
     }
 
     onSave(name: string): void {
+        const interrogationData = this.analysisService.getInterrogationData();
+
         name = name.trim();
 
         if (!name) {
@@ -74,7 +99,7 @@ export class AnalysisComponent implements OnInit {
 
         const animal = new Animal();
         animal.name = name;
-        animal.features = this.appropriateFeatures;
+        animal.features = interrogationData.appropriateFeatures;
 
         this.animalsService.createAnimal(animal)
             .subscribe(animal => {

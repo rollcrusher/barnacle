@@ -21,4 +21,8 @@ module.exports = (app) => {
     app.get('/api/features/search/prevalent', (req, res) => {
         FeatureDAO.getFeatureThatMostPrevalent(req, res);
     });
+
+    app.get('/api/features/search/array/id', (req, res) => {
+        FeatureDAO.getFeaturesByIdArr(req, res);
+    });
 };

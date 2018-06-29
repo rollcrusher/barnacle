@@ -34,3 +34,66 @@
         </div>
     </div>
 </div>
+
+<div class="analysis" style="justify-content: space-between; display: flex;">
+    <div class="flex-item analysis-features-container" *ngIf="relatedAnimals && relatedAnimals.length > 0">
+        <div class="card border-primary mb-3 analysis-features-card">
+            <div class="card-header analysis-features-header">
+                Appropriate features
+            </div>
+
+            <div class="card-body analysis-features-body">
+                <ul class="analysis-features-list">
+                    <li *ngFor="let feature of appropriateFeatures">
+                        {{feature.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-item analysis-features-container" *ngIf="relatedAnimals && relatedAnimals.length > 0">
+        <div class="card border-primary mb-3 analysis-features-card">
+            <div class="card-header analysis-features-header">
+                Unsuitable features
+            </div>
+
+            <div class="card-body analysis-features-body">
+                <ul class="analysis-features-list">
+                    <li *ngFor="let feature of unsuitableFeatures">
+                        {{feature.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="analysis" *ngIf="relatedAnimals && relatedAnimals.length > 0">
+    <div class="card border-primary mb-3 analysis-animals-related-card">
+        <div class="card-header analysis-animals-related-header">
+            Related animals
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover table-animals">
+                <thead>
+                <tr>
+                    <th style="width: 90%" scope="col">Name</th>
+                    <th scope="col">View</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let animal of relatedAnimals">
+                    <td scope="row" class="cell-animal-name">{{animal.name}}</td>
+                    <td class="cell-animal-details">
+                        <button class="btn btn-primary btn-sm btn-animal-details" type="button" title="Animal details"
+                                (click)="goToAnimalDetails(animal)">...
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

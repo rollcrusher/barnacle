@@ -51,8 +51,8 @@ module.exports = {
     },
 
     getAnimalsByFeatures: (req, res) => {
-        let includeFeatureIdObjects;
-        let excludeFeatureIdObjects;
+        let includeFeatureIdObjects = [];
+        let excludeFeatureIdObjects = [];
 
         try {
             includeFeatureIdObjects = requestParser.getData(req, 'includeFeatures');
