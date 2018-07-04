@@ -18,6 +18,7 @@ export class AnalysisComponent implements OnInit {
     appropriateFeatures: Feature[];
     unsuitableFeatures: Feature[];
     relatedAnimals: Animal[];
+    relatedAnimal: Animal;
     conclusion: string;
 
     constructor(private router: Router,
@@ -30,17 +31,21 @@ export class AnalysisComponent implements OnInit {
     ngOnInit() {
     }
 
+
+    defineConclusion(): void {
+        if (this.relatedAnimals !== null && this.relatedAnimals.length === 1) {
+            this.relatedAnimal = this.relatedAnimals[0];
+        }
+    }
+
     definePrevalentFeature(): void {
         this.prevalentFeature = null;
-
         const interrogationData = this.analysisService.getInterrogationData();
 
-        this.featuresService.getFeatureThatMostPrevalent(interrogationData.unsuitableFeatures)
+        this.featuresService.getFeatureThatMostPrevalent(interrogationData.appropriateFeatures, interrogationData.unsuitableFeatures)
             .subscribe((features) => {
                 if (features.length > 0) {
                     this.prevalentFeature = features[0];
-                } else {
-                    this.conclusion = 'NO_VARIANTS';
                 }
             });
     }
@@ -52,6 +57,7 @@ export class AnalysisComponent implements OnInit {
         this.animalsService.getAnimalsByFeatures(interrogationData.appropriateFeatures, interrogationData.unsuitableFeatures)
             .subscribe((result) => {
                 this.relatedAnimals = result;
+                this.defineConclusion();
             });
     }
 
@@ -63,15 +69,15 @@ export class AnalysisComponent implements OnInit {
 
     onYes(): void {
         this.analysisService.addAppropriateFeature(this.prevalentFeature);
-        this.definePrevalentFeature();
         this.defineRelatedAnimals();
+        this.definePrevalentFeature();
         this.defineStatFeatures();
     }
 
     onNo(): void {
         this.analysisService.addUnsuitableFeatures(this.prevalentFeature);
-        this.definePrevalentFeature();
         this.defineRelatedAnimals();
+        this.definePrevalentFeature();
         this.defineStatFeatures();
     }
 
@@ -81,11 +87,41 @@ export class AnalysisComponent implements OnInit {
         this.definePrevalentFeature();
     }
 
+    onCorrect(): void {
+        this.conclusion = 'SUCCESS';
+    }
+
+    onIncorrect(): void {
+        this.conclusion = 'FAILURE';
+    }
+
+    isInterrogationSuccessful(): boolean {
+        return this.conclusion === 'SUCCESS';
+    }
+
+    isInterrogationUnsuccessful(): boolean {
+        return (this.relatedAnimals === null || this.relatedAnimals.length === 0) && this.prevalentFeature === null;
+    }
+
+    isPrevalentFeatureDisplayable(): boolean {
+        return this.prevalentFeature !== null && typeof this.prevalentFeature !== 'undefined';
+    }
+
+    isRelatedAnimalDisplayable(): boolean {
+         return this.relatedAnimal !== null
+             && typeof this.relatedAnimal !== 'undefined'
+             && this.prevalentFeature === null
+             && this.relatedAnimals !== null
+             && this.relatedAnimals.length > 0;
+    }
+
     resetComponentData(): void {
         this.conclusion = null;
         this.relatedAnimals = null;
         this.appropriateFeatures = null;
         this.unsuitableFeatures = null;
+        this.relatedAnimal = null;
+        this.prevalentFeature = null;
     }
 
     onSave(name: string): void {

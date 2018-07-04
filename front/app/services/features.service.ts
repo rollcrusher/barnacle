@@ -35,22 +35,22 @@ export class FeaturesService {
             );
     }
 
-    getFeatureThatMostPrevalent(unsuitableFeatures: Feature[]): Observable<Feature[]> {
-        const featureIds = FeaturesService.extractIdsFromObjects(unsuitableFeatures);
-        const featureIdsStr = JSON.stringify(featureIds);
-        return this.http.get<Feature[]>(`${this.featuresUrl}/search/prevalent?excludeFeatures=${featureIdsStr}`)
+    getFeatureThatMostPrevalent(appropriateFeatures: Feature[], unsuitableFeatures: Feature[]): Observable<Feature[]> {
+        const appropriateFeaturesIds = FeaturesService.extractIdsFromObjects(appropriateFeatures);
+        const unsuitableFeaturessIds = FeaturesService.extractIdsFromObjects(unsuitableFeatures);
+        return this.http.get<Feature[]>(`${this.featuresUrl}/search/prevalent?includeFeatures=${appropriateFeaturesIds}&excludeFeatures=${unsuitableFeaturessIds}`)
             .pipe(
                 tap(features => FeaturesService.log(`fetched feature: ${JSON.stringify(features)}`)),
-                catchError(this.handleError(`getFeatureThatMostPrevalent ${featureIdsStr}`, []))
+                catchError(this.handleError(`getFeatureThatMostPrevalent`, []))
             );
     }
 
-    getFeaturesByIds(featureIds: string[]): Observable<Feature[]> {
-        const featureIdsArr = JSON.stringify(featureIds);
-        return this.http.get<Feature[]>(`${this.featuresUrl}/search/array/id?ids=${featureIdsArr}`)
+    getFeaturesByIds(features: Feature[]): Observable<Feature[]> {
+        const featureIdsStr = FeaturesService.extractIdsFromObjects(features);
+        return this.http.get<Feature[]>(`${this.featuresUrl}/search/array/id?ids=${featureIdsStr}`)
             .pipe(
                 tap(features => FeaturesService.log(`fetched feature: ${JSON.stringify(features)}`)),
-                catchError(this.handleError(`getFeatureThatMostPrevalent ${featureIdsArr}`, []))
+                catchError(this.handleError(`getFeatureThatMostPrevalent ${featureIdsStr}`, []))
             );
     }
 
@@ -78,12 +78,12 @@ export class FeaturesService {
         };
     }
 
-    private static extractIdsFromObjects(objArr: any[]): string[] {
+    private static extractIdsFromObjects(objArr: any[]): string {
         let idArr = [];
         for (let object of objArr) {
             idArr.push(object['id']);
         }
-        return idArr;
+        return JSON.stringify(idArr);
     }
 
     private static log(message: string) {

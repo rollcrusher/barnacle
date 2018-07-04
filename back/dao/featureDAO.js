@@ -59,7 +59,7 @@ module.exports = {
             }
         });
 
-        const query = {'_id': {'$in' : featureIdArr}};
+        const query = {'_id': {'$in': featureIdArr}};
 
         Feature.find(query).exec((err, feature) => {
             if (err) {
@@ -99,13 +99,37 @@ module.exports = {
     },
 
     getFeatureThatMostPrevalent: (req, res) => {
-        let excludeFeaturesId = requestParser.getData(req, 'excludeFeatures');
+        const excludeFeaturesId = requestParser.getData(req, 'excludeFeatures');
+        const includeFeaturesId = requestParser.getData(req, 'includeFeatures');
+
+        let andOperator = [];
+        let hiddenFeatures = {
+            $match: {
+                "_id": {
+                    $nin: includeFeaturesId
+                }
+            }
+        };
+
+        if (includeFeaturesId.length > 0) {
+            andOperator.push({
+                "features": {
+                    $in: includeFeaturesId
+                }
+            });
+        }
+
+        andOperator.push({
+            "features": {
+                $nin: excludeFeaturesId
+            }
+        });
 
         Animal.aggregate(
             [
                 {
                     $match: {
-                        "features": {$nin: excludeFeaturesId}
+                        $and: andOperator
                     }
                 },
                 {
@@ -116,7 +140,9 @@ module.exports = {
                 {
                     $group: {
                         _id: "$features",
-                        count: {$sum: 1}
+                        count: {
+                            $sum: 1
+                        }
                     }
                 },
                 {
@@ -133,10 +159,16 @@ module.exports = {
                     }
                 },
                 {
-                    $project: {name: "$feature.name", count: "$count"}
+                    $project: {
+                        name: "$feature.name",
+                        count: "$count"
+                    }
                 },
+                hiddenFeatures,
                 {
-                    $sort: {count: -1}
+                    $sort: {
+                        count: -1
+                    }
                 },
                 {
                     $limit: 100

@@ -73,14 +73,23 @@ module.exports = {
             .find()
             .select('name');
 
+        let andOperator = [];
+
         if (includeFeatureIdObjects.length > 0) {
-            query = query.where('features').in(includeFeatureIdObjects);
+            andOperator.push({
+                "features": {
+                    $all: includeFeatureIdObjects
+                }
+            });
         }
 
-        if (excludeFeatureIdObjects.length > 0) {
-            query = query.where('features').nin(excludeFeatureIdObjects);
-        }
+        andOperator.push({
+            "features": {
+                $nin: excludeFeatureIdObjects
+            }
+        });
 
+        query.and(andOperator);
 
         Animal.find(query).exec((err, animals) => {
             if (err) {

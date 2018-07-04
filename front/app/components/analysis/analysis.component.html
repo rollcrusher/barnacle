@@ -5,32 +5,46 @@
                 (click)="onNew()">New
         </button>
         <span class="flex-item" style="width: 100%"></span>
-        <button *ngIf="prevalentFeature" class="btn btn-primary btn-sm button-view-interrogation-no" type="button"
+        <button *ngIf="isPrevalentFeatureDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-no" type="button"
                 title="No"
                 (click)="onNo()">No
         </button>
 
-        <button *ngIf="prevalentFeature" class="btn btn-primary btn-sm button-view-interrogation-yes" type="button"
+        <button *ngIf="isPrevalentFeatureDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-yes" type="button"
                 title="Yes"
                 (click)="onYes()">Yes
         </button>
 
-        <button *ngIf="conclusion === 'NO_VARIANTS'" class="btn btn-primary btn-sm button-animal-name-save"
+        <button *ngIf="isRelatedAnimalDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-correct" type="button"
+                title="Correct"
+                (click)="onCorrect()">Correct
+        </button>
+
+        <button *ngIf="isRelatedAnimalDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-incorrect" type="button"
+                title="Incorrect"
+                (click)="onIncorrect()">Incorrect
+        </button>
+
+        <button *ngIf="isInterrogationUnsuccessful()" class="btn btn-primary btn-sm button-animal-name-save"
                 type="button" title="Save"
                 (click)="onSave(animalName.value)">Save
         </button>
     </div>
 
     <div class="card-body">
-        <div *ngIf="prevalentFeature" class="feature-known">
+        <div *ngIf="isPrevalentFeatureDisplayable()" class="feature-known">
             {{prevalentFeature.name}}
         </div>
 
-        <div [hidden]="conclusion !== 'NO_VARIANTS'" class="conclusion">
+        <div *ngIf="isInterrogationUnsuccessful()" class="conclusion">
             <div>I don't know this animal. Tell me, please, who is it?</div>
             <div>
                 <input #animalName placeholder="Animal name" class="form-control-sm flex-item input-new-animal-name"/>
             </div>
+        </div>
+
+        <div *ngIf="isRelatedAnimalDisplayable()" class="conclusion">
+            <div>I think it is a {{relatedAnimal.name}}</div>
         </div>
     </div>
 </div>
