@@ -26,6 +26,7 @@ export class AnalysisComponent implements OnInit {
                 private featuresService: FeaturesService,
                 private analysisService: AnalysisService,
                 private animalsService: AnimalsService,) {
+        this.conclusion = null;
     }
 
     ngOnInit() {
@@ -89,10 +90,12 @@ export class AnalysisComponent implements OnInit {
 
     onCorrect(): void {
         this.conclusion = 'SUCCESS';
+        this.relatedAnimal = null;
     }
 
     onIncorrect(): void {
         this.conclusion = 'FAILURE';
+        this.relatedAnimal = null;
     }
 
     isInterrogationSuccessful(): boolean {
@@ -100,7 +103,7 @@ export class AnalysisComponent implements OnInit {
     }
 
     isInterrogationUnsuccessful(): boolean {
-        return (this.relatedAnimals === null || this.relatedAnimals.length === 0) && this.prevalentFeature === null;
+        return this.conclusion === 'FAILURE';
     }
 
     isPrevalentFeatureDisplayable(): boolean {
@@ -113,6 +116,10 @@ export class AnalysisComponent implements OnInit {
              && this.prevalentFeature === null
              && this.relatedAnimals !== null
              && this.relatedAnimals.length > 0;
+    }
+
+    isConclusionButtonsDisplayable(): boolean {
+        return this.isRelatedAnimalDisplayable();
     }
 
     resetComponentData(): void {

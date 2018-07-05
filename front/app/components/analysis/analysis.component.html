@@ -15,14 +15,14 @@
                 (click)="onYes()">Yes
         </button>
 
-        <button *ngIf="isRelatedAnimalDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-correct" type="button"
-                title="Correct"
-                (click)="onCorrect()">Correct
-        </button>
-
-        <button *ngIf="isRelatedAnimalDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-incorrect" type="button"
+        <button *ngIf="isConclusionButtonsDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-incorrect" type="button"
                 title="Incorrect"
                 (click)="onIncorrect()">Incorrect
+        </button>
+
+        <button *ngIf="isConclusionButtonsDisplayable()" class="btn btn-primary btn-sm button-view-interrogation-correct" type="button"
+                title="Correct"
+                (click)="onCorrect()">Correct
         </button>
 
         <button *ngIf="isInterrogationUnsuccessful()" class="btn btn-primary btn-sm button-animal-name-save"
@@ -36,6 +36,10 @@
             {{prevalentFeature.name}}
         </div>
 
+        <div *ngIf="isRelatedAnimalDisplayable()" class="conclusion">
+            <div>I think it is a {{relatedAnimal.name}}</div>
+        </div>
+
         <div *ngIf="isInterrogationUnsuccessful()" class="conclusion">
             <div>I don't know this animal. Tell me, please, who is it?</div>
             <div>
@@ -43,8 +47,8 @@
             </div>
         </div>
 
-        <div *ngIf="isRelatedAnimalDisplayable()" class="conclusion">
-            <div>I think it is a {{relatedAnimal.name}}</div>
+        <div *ngIf="isInterrogationSuccessful()" class="conclusion">
+            <div>Awesome!!! Les't try again?</div>
         </div>
     </div>
 </div>
