@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const log4js = require('log4js');
 const logger = log4js.getLogger();
 logger.level = 'debug';
@@ -77,14 +76,14 @@ module.exports = {
 
         if (includeFeatureIdObjects.length > 0) {
             andOperator.push({
-                "features": {
+                'features': {
                     $all: includeFeatureIdObjects
                 }
             });
         }
 
         andOperator.push({
-            "features": {
+            'features': {
                 $nin: excludeFeatureIdObjects
             }
         });

@@ -10,7 +10,7 @@ const featureSchema = mongoose.Schema(
 featureSchema.set('toJSON', {
     virtuals: true,
     versionKey: false,
-    transform: function (doc, ret) {
+    transform: (doc, ret) => {
         delete ret._id;
     }
 });

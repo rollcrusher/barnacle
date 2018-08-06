@@ -9,7 +9,7 @@ import { AnimalEditComponent } from './components/animal-edit/animal-edit.compon
 import { FeatureListComponent } from './components/feature-list/feature-list.component';
 import { FeatureDetailsComponent } from './components/feature-details/feature-details.component';
 
-import { AnalysisComponent } from './components/analysis/analysis.component'
+import { AnalysisComponent } from './components/analysis/analysis.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'animals/list', pathMatch: 'full' },

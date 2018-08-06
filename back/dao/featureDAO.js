@@ -44,12 +44,11 @@ module.exports = {
     },
 
     getFeaturesByIdArr: (req, res) => {
-        let featureId;
         let featureIdArr = [];
 
         const featureIdArrReq = requestParser.getData(req, 'ids');
 
-        featureIdArrReq.forEach(featureId => {
+        featureIdArrReq.forEach((featureId) => {
             try {
                 featureId = mongoose.Types.ObjectId(featureId);
                 featureIdArr.push(featureId);
@@ -105,7 +104,7 @@ module.exports = {
         let andOperator = [];
         let hiddenFeatures = {
             $match: {
-                "_id": {
+                '_id': {
                     $nin: includeFeaturesId
                 }
             }
@@ -113,14 +112,14 @@ module.exports = {
 
         if (includeFeaturesId.length > 0) {
             andOperator.push({
-                "features": {
+                'features': {
                     $in: includeFeaturesId
                 }
             });
         }
 
         andOperator.push({
-            "features": {
+            'features': {
                 $nin: excludeFeaturesId
             }
         });
@@ -134,12 +133,12 @@ module.exports = {
                 },
                 {
                     $unwind: {
-                        path: "$features"
+                        path: '$features'
                     }
                 },
                 {
                     $group: {
-                        _id: "$features",
+                        _id: '$features',
                         count: {
                             $sum: 1
                         }
@@ -147,21 +146,21 @@ module.exports = {
                 },
                 {
                     $lookup: {
-                        from: "feature",
-                        localField: "_id",
-                        foreignField: "_id",
-                        as: "feature",
+                        from: 'feature',
+                        localField: '_id',
+                        foreignField: '_id',
+                        as: 'feature',
                     }
                 },
                 {
                     $unwind: {
-                        path: "$feature"
+                        path: '$feature'
                     }
                 },
                 {
                     $project: {
-                        name: "$feature.name",
-                        count: "$count"
+                        name: '$feature.name',
+                        count: '$count'
                     }
                 },
                 hiddenFeatures,
