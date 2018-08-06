@@ -5,6 +5,7 @@ import { FeaturesService } from '../../services/features.service';
 import { AnalysisService } from '../../services/analysis.service';
 import { Animal } from '../../models/animal.model';
 import { AnimalsService } from '../../services/animals.service';
+import { InterrogationFlow } from '../../models/interrodation-flow.model';
 
 @Component({
     selector: 'app-analysis',
@@ -19,14 +20,17 @@ export class AnalysisComponent implements OnInit {
     unsuitableFeatures: Feature[];
     relatedAnimals: Animal[];
     relatedAnimal: Animal;
-    conclusion: string;
+    flow: InterrogationFlow;
 
     constructor(private router: Router,
-                private route: ActivatedRoute,
                 private featuresService: FeaturesService,
                 private analysisService: AnalysisService,
-                private animalsService: AnimalsService,) {
-        this.conclusion = null;
+                private animalsService: AnimalsService) {
+        this.unsuitableFeatures = null;
+        this.relatedAnimal = null;
+        this.prevalentFeature = null;
+        this.flow = new InterrogationFlow();
+
     }
 
     ngOnInit() {
@@ -36,6 +40,10 @@ export class AnalysisComponent implements OnInit {
     defineConclusion(): void {
         if (this.relatedAnimals !== null && this.relatedAnimals.length === 1) {
             this.relatedAnimal = this.relatedAnimals[0];
+        }
+
+        if (this.relatedAnimals.length === 0) {
+            this.flow.setCondition(InterrogationFlow.CONDITION_HAS_NOT_CONCLUSION);
         }
     }
 
@@ -53,6 +61,7 @@ export class AnalysisComponent implements OnInit {
 
     defineRelatedAnimals(): void {
         this.relatedAnimals = null;
+        this.relatedAnimal = null;
         const interrogationData = this.analysisService.getInterrogationData();
 
         this.animalsService.getAnimalsByFeatures(interrogationData.appropriateFeatures, interrogationData.unsuitableFeatures)
@@ -86,49 +95,17 @@ export class AnalysisComponent implements OnInit {
         this.resetComponentData();
         this.analysisService.cleanInterrogationData();
         this.definePrevalentFeature();
+        this.flow.setCondition(InterrogationFlow.CONDITION_IN_PROGRESS);
     }
 
     onCorrect(): void {
-        this.conclusion = 'SUCCESS';
         this.relatedAnimal = null;
+        this.flow.setCondition(InterrogationFlow.CONDITION_RIGHT_CONCLUSION);
     }
 
     onIncorrect(): void {
-        this.conclusion = 'FAILURE';
         this.relatedAnimal = null;
-    }
-
-    isInterrogationSuccessful(): boolean {
-        return this.conclusion === 'SUCCESS';
-    }
-
-    isInterrogationUnsuccessful(): boolean {
-        return this.conclusion === 'FAILURE';
-    }
-
-    isPrevalentFeatureDisplayable(): boolean {
-        return this.prevalentFeature !== null && typeof this.prevalentFeature !== 'undefined';
-    }
-
-    isRelatedAnimalDisplayable(): boolean {
-         return this.relatedAnimal !== null
-             && typeof this.relatedAnimal !== 'undefined'
-             && this.prevalentFeature === null
-             && this.relatedAnimals !== null
-             && this.relatedAnimals.length > 0;
-    }
-
-    isConclusionButtonsDisplayable(): boolean {
-        return this.isRelatedAnimalDisplayable();
-    }
-
-    resetComponentData(): void {
-        this.conclusion = null;
-        this.relatedAnimals = null;
-        this.appropriateFeatures = null;
-        this.unsuitableFeatures = null;
-        this.relatedAnimal = null;
-        this.prevalentFeature = null;
+        this.flow.setCondition(InterrogationFlow.CONDITION_WRONG_CONCLUSION);
     }
 
     onSave(name: string): void {
@@ -148,5 +125,59 @@ export class AnalysisComponent implements OnInit {
             .subscribe(animal => {
                 this.router.navigate(['animals/edit/' + animal.id]);
             });
+    }
+
+    getClassForConclusionBlock(): string {
+        return this.flow.getConclusion() === InterrogationFlow.CONDITION_WRONG_CONCLUSION
+        || this.flow.getConclusion() === InterrogationFlow.CONDITION_HAS_NOT_CONCLUSION
+            ? 'block-display'
+            : 'block-hide';
+    }
+
+    getClassForRelatedAnimalBlock(): string {
+        return this._isRelatedAnimalDisplayable()
+            ? 'block-display'
+            : 'block-hide';
+    }
+
+    getClassForSuccessfulBlock(): string {
+        return this.flow.getConclusion() === InterrogationFlow.CONDITION_RIGHT_CONCLUSION
+            ? 'block-display'
+            : 'block-hide';
+    }
+
+    getClassForPrevalentFeatureBlock(): string {
+        return this.prevalentFeature !== null && typeof this.prevalentFeature !== 'undefined'
+            ? 'block-display'
+            : 'block-hide';
+    }
+
+    _isRelatedAnimalDisplayable(): boolean {
+        return this.relatedAnimal !== null
+            && typeof this.relatedAnimal !== 'undefined'
+            && this.prevalentFeature === null
+            && this.relatedAnimals !== null
+            && this.relatedAnimals.length > 0;
+    }
+
+    isConclusionButtonsDisplayable(): boolean {
+        return this._isRelatedAnimalDisplayable();
+    }
+
+    isNewAnimalElementsDisplayable(): boolean {
+        return this.flow.getConclusion() === InterrogationFlow.CONDITION_WRONG_CONCLUSION
+            || this.flow.getConclusion() === InterrogationFlow.CONDITION_HAS_NOT_CONCLUSION;
+    }
+
+    isAnswerButtonDisplayable(): boolean {
+        return this.prevalentFeature !== null && typeof this.prevalentFeature !== 'undefined'
+    }
+
+    resetComponentData(): void {
+        this.relatedAnimals = null;
+        this.appropriateFeatures = null;
+        this.unsuitableFeatures = null;
+        this.relatedAnimal = null;
+        this.prevalentFeature = null;
     }
 }
